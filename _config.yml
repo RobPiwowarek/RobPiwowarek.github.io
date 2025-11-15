@@ -7,3 +7,8 @@ github_username: your-username
 # Build Settings
 markdown: kramdown
 highlighter: rouge
+
+# NOWE LINIE - Ustawienia ścieżek (URL)
+# Zastąp 'my-blog-repo-name' nazwą swojego repozytorium
+baseurl: "/my-blog-repo-name" 
+url: "https://robpiwowarek.github.io"
