@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    /* This is just to show content on top. You can delete this. */
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: white;
+    /* The dark background is part of the canvas, 
+       but a body fallback is good. */
+    background-color: #222;
+}
+
+/* This is the crucial part for the background */
+#rtsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Puts the canvas behind other content */
+    background-color: #222; /* Dark background color */
+}
+
+/* Example content to show it's in the background */
+.content {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 4rem auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0.5rem;
+    text-align: center;
+}
