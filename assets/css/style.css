@@ -191,7 +191,7 @@ pre code {
 }
 
 /* --- Matrix Background Canvas --- */
-matrix-rain-canvas {
+#matrix-rain-canvas {
     position: fixed; /* Fixes it to the viewport */
     top: 0;
     left: 0;
