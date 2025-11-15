@@ -10,5 +10,5 @@ highlighter: rouge
 
 # NOWE LINIE - Ustawienia ścieżek (URL)
 # Zastąp 'my-blog-repo-name' nazwą swojego repozytorium
-baseurl: "/my-blog-repo-name" 
+baseurl: "" 
 url: "https://robpiwowarek.github.io"
