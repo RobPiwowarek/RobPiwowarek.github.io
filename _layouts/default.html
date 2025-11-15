@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a class="site-title" href="/">{{ site.title }}</a>
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+            </nav>
+        </header>
+
+        <main class="site-content">
+            {{ content }}
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. Powered by GitHub Pages.</p>
+        </footer>
+    </div>
+</body>
+</html>

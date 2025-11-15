@@ -1,0 +1,9 @@
+# Site Settings
+title: Code & Conquest
+description: A blog about programming deep dives and gaming adventures.
+author: Your Name
+github_username: your-username
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
