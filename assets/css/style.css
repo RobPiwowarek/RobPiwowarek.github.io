@@ -187,4 +187,22 @@ pre code {
         margin-left: 0;
         margin-right: 15px;
     }
+
+}
+
+/* --- Matrix Background Canvas --- */
+#matrix-rain-canvas {
+    position: fixed; /* Fixes it to the viewport */
+    top: 0;
+    left: 0;
+    width: 100vw;    /* Cover full viewport width */
+    height: 100vh;   /* Cover full viewport height */
+    z-index: -1;     /* Send it behind all other content */
+    background-color: var(--bg-color); /* Ensure consistent background */
+}
+
+/* Ensure content is positioned relative to avoid being behind canvas */
+body > .container, body > footer, body > header {
+    position: relative;
+    z-index: 1;
 }
