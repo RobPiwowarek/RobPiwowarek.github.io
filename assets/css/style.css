@@ -299,29 +299,3 @@ pre code {
         display: none;
     }
 }
-
-/* --- Pagination Links --- */
-.pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px dashed var(--border-color);
-}
-
-.pagination a {
-    text-decoration: none;
-    border: 1px solid var(--border-color);
-    padding: 8px 12px;
-}
-.pagination a:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-color);
-    text-decoration: none;
-}
-
-.pagination .page-number {
-    font-style: italic;
-    color: #999;
-}
