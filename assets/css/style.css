@@ -190,34 +190,27 @@ pre code {
 
 }
 
-/* --- NEW: Matrix Sidebar Layout --- */
+/* --- NEW: Asymmetric Matrix Boxes --- */
 
-/* 1. Style the sidebars */
-.matrix-sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 200px; /* Width of the sidebars */
-    z-index: 1;
-    background-color: #000; /* Black background for the bars */
-}
-#matrix-sidebar-left {
-    left: 0;
-}
-#matrix-sidebar-right {
-    right: 0;
+/* 1. Main style for all boxes */
+.matrix-box {
+    position: fixed; /* Pins them to the viewport */
+    z-index: 1;      /* Sits behind content, but on top of page background */
+    background-color: #000;
+    border: 1px solid var(--border-color); /* The border you wanted */
+    overflow: hidden; /* Ensures canvas doesn't spill out */
 }
 
-/* 2. Make the canvas fill its sidebar parent */
-.matrix-sidebar canvas {
+/* 2. Style for the canvas inside any box */
+.matrix-box canvas {
     width: 100%;
     height: 100%;
 }
 
-/* 3. Adjust the main content to fit *between* the sidebars */
+/* 3. Your main content container */
 .container {
     position: relative;
-    z-index: 2; /* Sits on top */
+    z-index: 2; /* Sits ON TOP of the matrix boxes */
     
     /* "Fog" effect for readability */
     background-color: rgba(0, 0, 0, 0.85); 
@@ -225,16 +218,41 @@ pre code {
     padding: 20px 30px;
     border-radius: 5px;
 
-    /* KEY: Give it margins to avoid sidebars */
+    /* KEY: Center it in the viewport */
     max-width: 800px;
-    margin: 0 auto; /* Center it */
+    margin: 40px auto; /* 40px top/bottom, centered left/right */
+}
+
+/*
+ * --- THIS IS THE FUN PART ---
+ * Tweak these values to get the exact look you want.
+ */
+#matrix-box-1 {
+    top: 15vh;  /* 15% from the top */
+    left: 5vw;  /* 5% from the left */
+    width: 200px;
+    height: 300px;
+}
+
+#matrix-box-2 {
+    top: 50vh;  /* 50% from the top */
+    left: 8vw;  /* 8% from the left (shifted) */
+    width: 150px;
+    height: 250px;
+}
+
+#matrix-box-3 {
+    top: 20vh;   /* 20% from the top */
+    right: 6vw;  /* 6% from the right */
+    width: 180px;
+    height: 400px;
 }
 
 
 /* --- 4. Responsive Design --- */
-/* On screens 1250px or narrower, hide the sidebars */
-@media (max-width: 1250px) {
-    .matrix-sidebar {
+/* On screens 1100px or narrower, hide the boxes */
+@media (max-width: 1100px) {
+    .matrix-box {
         display: none;
     }
 }

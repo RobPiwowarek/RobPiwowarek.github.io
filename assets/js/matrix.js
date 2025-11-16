@@ -70,6 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //
     // NOW, WE CALL THE FUNCTION FOR EACH CANVAS
     //
-    createMatrixRain('matrix-left');
-    createMatrixRain('matrix-right');
+    createMatrixRain('matrix-canvas-1');
+    createMatrixRain('matrix-canvas-2');
+    createMatrixRain('matrix-canvas-3');
 });
