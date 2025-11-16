@@ -236,7 +236,7 @@ pre code {
 /* --- LEFT CLUSTER --- */
 #matrix-box-1 {
     top: 50px;
-    left: 0;
+    left: 40px;
     width: 240px;
     height: 240px; /* Square */
     margin-right: 20px; /* Space from main content */
@@ -244,7 +244,7 @@ pre code {
 
 #matrix-box-2 {
     top: 320px; /* Stacked below box 1 */
-    left: 0; /* Slightly shifted */
+    left: 80px; /* Slightly shifted */
     width: 240px;
     height: 240px; /* Square */
     margin-right: 60px;
@@ -252,7 +252,7 @@ pre code {
 
 #matrix-box-3 {
     top: 590px; /* Stacked below box 2 */
-    left: 0;
+    left: 60px;
     width: 240px;
     height: 240px; /* Square */
     margin-right: 40px;
@@ -261,7 +261,7 @@ pre code {
 /* --- RIGHT CLUSTER --- */
 #matrix-box-4 {
     top: 50px;
-    right: 0;
+    right: 40px;
     width: 240px;
     height: 240px; /* Square */
     margin-left: 20px; /* Space from main content */
@@ -269,7 +269,7 @@ pre code {
 
 #matrix-box-5 {
     top: 320px; /* Stacked below box 4 */
-    right: 0; /* Slightly shifted */
+    right: 80px; /* Slightly shifted */
     width: 240px;
     height: 240px; /* Square */
     margin-left: 60px;
@@ -277,7 +277,7 @@ pre code {
 
 #matrix-box-6 {
     top: 590px; /* Stacked below box 5 */
-    right: 0;
+    right: 60px;
     width: 240px;
     height: 240px; /* Square */
     margin-left: 40px;

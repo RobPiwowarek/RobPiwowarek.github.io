@@ -1,8 +1,8 @@
 // --- Canvas Setup ---
-const canvas = document.getElementById('rtsCanvas');
+const canvas = document.getElementById('matrix-canvas-5');
 // Failsafe in case the script loads on a page without the canvas
 if (!canvas) {
-    console.error("RTS_BACKGROUND: Could not find element with id 'rtsCanvas'.");
+    console.error("RTS_BACKGROUND: Could not find element with id 'matrix-canvas-5'.");
 } else {
     const ctx = canvas.getContext('2d');
 
