@@ -236,7 +236,7 @@ pre code {
 /* --- LEFT CLUSTER --- */
 #matrix-box-1 {
     top: 50px;
-    left: 40px;
+    left: -80px;
     width: 240px;
     height: 240px; /* Square */
     margin-right: 100px; /* Space from main content */
@@ -244,15 +244,15 @@ pre code {
 
 #matrix-box-2 {
     top: 320px; /* Stacked below box 1 */
-    left: 80px; /* Slightly shifted */
-    width: 240px;
-    height: 240px; /* Square */
+    left: -320px; /* Slightly shifted */
+    width: 400px;
+    height: 360px; /* Square */
     margin-right: 140px;
 }
 
 #matrix-box-3 {
-    top: 590px; /* Stacked below box 2 */
-    left: 60px;
+    top: 710px; /* Stacked below box 2 */
+    left: -100px;
     width: 240px;
     height: 240px; /* Square */
     margin-right: 120px;
@@ -261,7 +261,7 @@ pre code {
 /* --- RIGHT CLUSTER --- */
 #matrix-box-4 {
     top: 50px;
-    right: 40px;
+    right: -80px;
     width: 240px;
     height: 240px; /* Square */
     margin-left: 100px; /* Space from main content */
@@ -269,15 +269,15 @@ pre code {
 
 #matrix-box-5 {
     top: 320px; /* Stacked below box 4 */
-    right: 80px; /* Slightly shifted */
-    width: 240px;
-    height: 240px; /* Square */
+    right: -320px; /* Slightly shifted */
+    width: 400px;
+    height: 360px; /* Square */
     margin-left: 140px;
 }
 
 #matrix-box-6 {
-    top: 590px; /* Stacked below box 5 */
-    right: 60px;
+    top: 710px; /* Stacked below box 5 */
+    right: -100px;
     width: 240px;
     height: 240px; /* Square */
     margin-left: 120px;
@@ -298,4 +298,30 @@ pre code {
     .matrix-box {
         display: none;
     }
+}
+
+/* --- Pagination Links --- */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.pagination a {
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+}
+.pagination a:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    text-decoration: none;
+}
+
+.pagination .page-number {
+    font-style: italic;
+    color: #999;
 }

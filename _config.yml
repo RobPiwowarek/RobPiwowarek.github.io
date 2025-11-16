@@ -8,7 +8,9 @@ github_username: your-username
 markdown: kramdown
 highlighter: rouge
 
-# NOWE LINIE - Ustawienia ścieżek (URL)
-# Zastąp 'my-blog-repo-name' nazwą swojego repozytorium
 baseurl: "" 
 url: "https://robpiwowarek.github.io"
+
+# Pagination Settings
+paginate: 5
+paginate_path: "/page/:num/"
