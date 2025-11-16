@@ -190,19 +190,51 @@ pre code {
 
 }
 
-/* --- Matrix Background Canvas --- */
-#matrix-rain-canvas {
-    position: fixed; /* Fixes it to the viewport */
+/* --- NEW: Matrix Sidebar Layout --- */
+
+/* 1. Style the sidebars */
+.matrix-sidebar {
+    position: fixed;
     top: 0;
+    bottom: 0;
+    width: 200px; /* Width of the sidebars */
+    z-index: 1;
+    background-color: #000; /* Black background for the bars */
+}
+#matrix-sidebar-left {
     left: 0;
-    width: 100vw;    /* Cover full viewport width */
-    height: 100vh;   /* Cover full viewport height */
-    z-index: -1;     /* Send it behind all other content */
-    background-color: var(--bg-color); /* Ensure consistent background */
+}
+#matrix-sidebar-right {
+    right: 0;
 }
 
-/* Ensure content is positioned relative to avoid being behind canvas */
-body > .container, body > footer, body > header {
+/* 2. Make the canvas fill its sidebar parent */
+.matrix-sidebar canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* 3. Adjust the main content to fit *between* the sidebars */
+.container {
     position: relative;
-    z-index: 1;
+    z-index: 2; /* Sits on top */
+    
+    /* "Fog" effect for readability */
+    background-color: rgba(0, 0, 0, 0.85); 
+    border: 1px solid var(--border-color);
+    padding: 20px 30px;
+    border-radius: 5px;
+
+    /* KEY: Give it margins to avoid sidebars */
+    max-width: 800px;
+    margin: 0 auto; /* Center it */
+}
+
+
+/* --- 4. Responsive Design --- */
+/* On screens 1250px or narrower, hide the sidebars */
+@media (max-width: 1250px) {
+    .matrix-sidebar {
+        display: none;
+    }
 }
