@@ -194,10 +194,10 @@ pre code {
 
 /* --- NEW: Main Wrapper --- */
 .main-wrapper {
-    position: relative; /* This is the new anchor */
+    position: relative;
     width: 100%;
-    max-width: 1200px; /* Wider than content, to make room */
-    margin: 40px auto; /* Centers the whole setup */
+    max-width: 1400px; /* NEW: Wider to accommodate more boxes */
+    margin: 40px auto;
 }
 
 /* 1. Main style for all boxes */
@@ -218,44 +218,75 @@ pre code {
 /* 3. Your main content container */
 .container {
     position: relative;
-    z-index: 2; 
-    background-color: rgba(0, 0, 0, 0.85); 
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.85);
     border: 1px solid var(--border-color);
     padding: 20px 30px;
     border-radius: 5px;
-    max-width: 800px;
-    margin: 0 auto; /* <-- CHANGED */
+    max-width: 900px; /* NEW: Slightly wider than before, but smaller than wrapper */
+    margin: 0 auto;
 }
 
 /*
- * --- THIS IS THE FUN PART ---
+ * --- CLUSTERED MATRIX BOXES (NEW LAYOUT) ---
  * Tweak these values to get the exact look you want.
+ * Note the 'margin-right' and 'margin-left' for separation.
  */
+
+/* --- LEFT CLUSTER --- */
 #matrix-box-1 {
     top: 50px;
-    left: 0; /* Sticks to the left edge of the wrapper */
-    width: 180px; /* Fits in the 200px gap */
-    height: 300px;
+    left: 0;
+    width: 180px;
+    height: 180px; /* Square */
+    margin-right: 20px; /* Space from main content */
 }
 
 #matrix-box-2 {
-    top: 400px;
-    left: 20px; /* Shifted slightly from the edge */
+    top: 250px; /* Stacked below box 1 */
+    left: 20px; /* Slightly shifted */
     width: 150px;
-    height: 250px;
+    height: 150px; /* Square */
+    margin-right: 20px;
 }
 
 #matrix-box-3 {
+    top: 420px; /* Stacked below box 2 */
+    left: 0;
+    width: 200px;
+    height: 200px; /* Square */
+    margin-right: 20px;
+}
+
+/* --- RIGHT CLUSTER --- */
+#matrix-box-4 {
     top: 80px;
-    right: 0; /* Sticks to the right edge of the wrapper */
-    width: 180px; /* Fits in the 200px gap */
-    height: 400px;
+    right: 0;
+    width: 160px;
+    height: 160px; /* Square */
+    margin-left: 20px; /* Space from main content */
+}
+
+#matrix-box-5 {
+    top: 280px; /* Stacked below box 4 */
+    right: 10px; /* Slightly shifted */
+    width: 190px;
+    height: 190px; /* Square */
+    margin-left: 20px;
+}
+
+#matrix-box-6 {
+    top: 500px; /* Stacked below box 5 */
+    right: 0;
+    width: 170px;
+    height: 170px; /* Square */
+    margin-left: 20px;
 }
 
 
-/* --- 4. Responsive Design --- */
-/* On screens 1100px or narrower, hide the boxes */
-@media (max-width: 1200px) {
+/* --- Responsive Design --- */
+/* Hide all matrix boxes when the wrapper starts to get too small */
+@media (max-width: 1400px) { /* NEW: Matches wrapper max-width */
     .matrix-box {
         display: none;
     }
