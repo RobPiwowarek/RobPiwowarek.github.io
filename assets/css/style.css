@@ -239,7 +239,7 @@ pre code {
     left: 40px;
     width: 240px;
     height: 240px; /* Square */
-    margin-right: 20px; /* Space from main content */
+    margin-right: 100px; /* Space from main content */
 }
 
 #matrix-box-2 {
@@ -247,7 +247,7 @@ pre code {
     left: 80px; /* Slightly shifted */
     width: 240px;
     height: 240px; /* Square */
-    margin-right: 60px;
+    margin-right: 140px;
 }
 
 #matrix-box-3 {
@@ -255,7 +255,7 @@ pre code {
     left: 60px;
     width: 240px;
     height: 240px; /* Square */
-    margin-right: 40px;
+    margin-right: 120px;
 }
 
 /* --- RIGHT CLUSTER --- */
@@ -264,7 +264,7 @@ pre code {
     right: 40px;
     width: 240px;
     height: 240px; /* Square */
-    margin-left: 20px; /* Space from main content */
+    margin-left: 100px; /* Space from main content */
 }
 
 #matrix-box-5 {
@@ -272,7 +272,7 @@ pre code {
     right: 80px; /* Slightly shifted */
     width: 240px;
     height: 240px; /* Square */
-    margin-left: 60px;
+    margin-left: 140px;
 }
 
 #matrix-box-6 {
@@ -280,9 +280,17 @@ pre code {
     right: 60px;
     width: 240px;
     height: 240px; /* Square */
-    margin-left: 40px;
+    margin-left: 120px;
 }
 
+#background-canvas {
+    position: fixed; /* Fixes it to the viewport */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Sits on top of the BODY background */
+}
 
 /* --- Responsive Design --- */
 /* Hide all matrix boxes when the wrapper starts to get too small */
