@@ -8,34 +8,36 @@
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/rts_background.css">
 </head>
 <body>
-   <div class="matrix-box" id="matrix-box-1">
-        <canvas id="matrix-canvas-1"></canvas>
-    </div>
+   <div class="main-wrapper">
+       <div class="matrix-box" id="matrix-box-1">
+           <canvas id="matrix-canvas-1"></canvas>
+       </div>
     
-    <div class="matrix-box" id="matrix-box-2">
-        <canvas id="matrix-canvas-2"></canvas>
-    </div>
+       <div class="matrix-box" id="matrix-box-2">
+           <canvas id="matrix-canvas-2"></canvas>
+       </div>
     
-    <div class="matrix-box" id="matrix-box-3">
-        <canvas id="matrix-canvas-3"></canvas>
-    </div>
+       <div class="matrix-box" id="matrix-box-3">
+           <canvas id="matrix-canvas-3"></canvas>
+       </div>
 
-    <div class="container">
-        <header class="site-header">
-            <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-            <nav class="site-nav">
-                <a href="{{ site.baseurl }}/">Home</a>
-                <a href="{{ site.baseurl }}/about.html">About</a>
-            </nav>
-        </header>
+       <div class="container">
+           <header class="site-header">
+              <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+              <nav class="site-nav">
+                  <a href="{{ site.baseurl }}/">Home</a>
+                  <a href="{{ site.baseurl }}/about.html">About</a>
+              </nav>
+           </header>
 
-        <main class="site-content">
-            {{ content }}
-        </main>
+           <main class="site-content">
+               {{ content }}
+           </main>
 
-        <footer class="site-footer">
-            <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. Powered by GitHub Pages.</p>
-        </footer>
+           <footer class="site-footer">
+               <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. Powered by GitHub Pages.</p>
+           </footer>
+        </div>
     </div>
     <script src="{{ site.baseurl }}/assets/js/matrix.js"></script>
     <!-- <script src="{{ site.baseurl }}/assets/js/rts_background.js"></script> -->

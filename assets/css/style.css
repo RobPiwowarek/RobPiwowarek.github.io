@@ -192,13 +192,21 @@ pre code {
 
 /* --- NEW: Asymmetric Matrix Boxes --- */
 
+/* --- NEW: Main Wrapper --- */
+.main-wrapper {
+    position: relative; /* This is the new anchor */
+    width: 100%;
+    max-width: 1200px; /* Wider than content, to make room */
+    margin: 40px auto; /* Centers the whole setup */
+}
+
 /* 1. Main style for all boxes */
 .matrix-box {
-    position: fixed; /* Pins them to the viewport */
-    z-index: 1;      /* Sits behind content, but on top of page background */
+    position: absolute; /* <-- CHANGED */
+    z-index: 1;      
     background-color: #000;
-    border: 1px solid var(--border-color); /* The border you wanted */
-    overflow: hidden; /* Ensures canvas doesn't spill out */
+    border: 1px solid var(--border-color); 
+    overflow: hidden; 
 }
 
 /* 2. Style for the canvas inside any box */
@@ -210,17 +218,13 @@ pre code {
 /* 3. Your main content container */
 .container {
     position: relative;
-    z-index: 2; /* Sits ON TOP of the matrix boxes */
-    
-    /* "Fog" effect for readability */
+    z-index: 2; 
     background-color: rgba(0, 0, 0, 0.85); 
     border: 1px solid var(--border-color);
     padding: 20px 30px;
     border-radius: 5px;
-
-    /* KEY: Center it in the viewport */
     max-width: 800px;
-    margin: 40px auto; /* 40px top/bottom, centered left/right */
+    margin: 0 auto; /* <-- CHANGED */
 }
 
 /*
@@ -228,30 +232,30 @@ pre code {
  * Tweak these values to get the exact look you want.
  */
 #matrix-box-1 {
-    top: 15vh;  /* 15% from the top */
-    left: 5vw;  /* 5% from the left */
-    width: 200px;
+    top: 50px;
+    left: 0; /* Sticks to the left edge of the wrapper */
+    width: 180px; /* Fits in the 200px gap */
     height: 300px;
 }
 
 #matrix-box-2 {
-    top: 50vh;  /* 50% from the top */
-    left: 8vw;  /* 8% from the left (shifted) */
+    top: 400px;
+    left: 20px; /* Shifted slightly from the edge */
     width: 150px;
     height: 250px;
 }
 
 #matrix-box-3 {
-    top: 20vh;   /* 20% from the top */
-    right: 6vw;  /* 6% from the right */
-    width: 180px;
+    top: 80px;
+    right: 0; /* Sticks to the right edge of the wrapper */
+    width: 180px; /* Fits in the 200px gap */
     height: 400px;
 }
 
 
 /* --- 4. Responsive Design --- */
 /* On screens 1100px or narrower, hide the boxes */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .matrix-box {
         display: none;
     }
