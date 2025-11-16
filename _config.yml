@@ -14,3 +14,7 @@ url: "https://robpiwowarek.github.io"
 # Pagination Settings
 paginate: 5
 paginate_path: "/page/:num/"
+
+# Add this section to enable the plugin
+plugins:
+  - jekyll-paginate
