@@ -3,31 +3,36 @@
    ========================================= */
 :root {
     /* PALETTE */
-    --bg-deep: #0f172a;         /* Matches your canvas background */
-    --text-main: #e2e8f0;       /* Off-white */
-    --text-muted: #94a3b8;      /* Grey for dates/metadata */
-    --accent-cyan: #64ffda;     /* Primary Action Color */
-    --accent-purple: #bd93f9;   /* Secondary/Hover Color */
+    --bg-deep: #0f172a;         /* Darkest Navy (Canvas Background) */
+    --bg-card: #1e293b;         /* Lighter Slate (Post Cards) */
+    --bg-panel: rgba(30, 41, 59, 0.95); /* The Main Content Panel */
     
-    /* BORDERS & GLASS */
-    --border-color: rgba(100, 255, 218, 0.1);
-    --glass-bg: rgba(15, 23, 42, 0.85); 
-    --glass-blur: blur(12px);
+    --text-main: #e2e8f0;       
+    --text-muted: #94a3b8;      
+    --accent-cyan: #64ffda;     
+    --accent-purple: #bd93f9;   
+    
+    /* BORDERS & GLOW */
+    --border-subtle: rgba(148, 163, 184, 0.1);
+    --border-highlight: rgba(100, 255, 218, 0.3);
     
     /* SPACING */
-    --radius-sm: 4px;
-    --radius-lg: 8px;
+    --radius-lg: 12px;
     --container-width: 900px;
 }
 
 /* =========================================
-   2. GLOBAL RESET & TYPOGRAPHY
+   2. GLOBAL RESET & ANIMATIONS
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap');
 
-* {
-    box-sizing: border-box;
+/* KEYFRAME: The Blinking Cursor */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
+
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -35,90 +40,56 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-main);
     line-height: 1.7;
-    /* CRITICAL: Transparent so we see the JS canvas behind it */
     background: transparent; 
 }
 
-/* Headers */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-main);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    letter-spacing: -0.5px;
-}
-
-h1 {
-    color: var(--accent-cyan);
-    text-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
-}
-
-/* Links */
-a {
-    color: var(--accent-cyan);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-a:hover {
-    color: var(--accent-purple);
-}
+a { text-decoration: none; color: inherit; }
 
 /* =========================================
-   3. HEADER & NAVIGATION (FIXED)
+   3. HEADER (Terminal Style)
    ========================================= */
 .site-header {
     display: flex;
-    justify-content: space-between; /* Pushes Title Left, Nav Right */
+    justify-content: space-between;
     align-items: center;
     max-width: var(--container-width);
-    margin: 0 auto; /* Centers the header strip */
+    margin: 0 auto;
     padding: 2rem 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-subtle);
     position: relative;
     z-index: 10;
 }
 
-.site-title, header h1 {
+/* THE BLINKING CURSOR EFFECT */
+.site-title {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
+    color: var(--accent-cyan);
     margin: 0;
 }
 
-/* Navigation Links Container */
-.site-nav .trigger, nav {
-    display: flex;
-    gap: 30px; /* Space between Home / About */
+.site-title::after {
+    content: '_';
+    display: inline-block;
+    margin-left: 5px;
+    animation: blink 1s step-end infinite;
+    color: var(--accent-purple);
 }
 
-.site-nav .page-link, nav a {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
+/* Navigation */
+.site-nav .trigger { display: flex; gap: 30px; }
+.site-nav .page-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
     color: var(--text-main);
     position: relative;
+    transition: color 0.3s;
 }
-
-/* The "Underline" hover effect */
-.site-nav .page-link::after, nav a::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: var(--accent-purple);
-    transition: width 0.3s;
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-}
-
-.site-nav .page-link:hover::after, nav a:hover::after {
-    width: 100%;
-}
+.site-nav .page-link:hover { color: var(--accent-cyan); }
 
 /* =========================================
-   4. MAIN CONTAINER & CARDS
+   4. MAIN CONTAINER (Distinct Blue)
    ========================================= */
 .main-wrapper {
     position: relative;
@@ -127,192 +98,178 @@ a:hover {
     margin: 40px auto;
 }
 
-/* The central column where text lives */
-.container, article, .post-content {
+.container, article {
     position: relative;
     z-index: 5;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--border-color);
-    padding: 2.5rem;
+    /* NEW COLOR: Lighter Slate Blue to stand out from black bg */
+    background-color: var(--bg-panel); 
+    border: 1px solid var(--border-subtle);
+    /* Subtle inner glow */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.5); 
+    padding: 3rem;
     border-radius: var(--radius-lg);
     max-width: var(--container-width);
-    margin: 0 auto 3rem auto; /* Centers it */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    margin: 0 auto 3rem auto;
 }
 
 /* =========================================
-   5. POST LIST STYLING (FIXED)
+   5. POST CARDS (New Layout)
    ========================================= */
-ul.post-list, .home ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Space between cards */
 }
 
-ul.post-list > li, .home ul > li {
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+/* The Card Container */
+.post-card {
+    display: flex; /* Flexbox for Side-by-Side */
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    height: 220px; /* Fixed height for consistency */
 }
 
-/* 1. Date: Small & Muted */
-.post-meta, li span.post-meta {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
+/* Hover Effects for Card */
+.post-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.15);
 }
 
-/* 2. Title: Big & Cyan */
-.post-link, li h3 a, li a.post-link {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--accent-cyan);
-    line-height: 1.2;
-    margin-bottom: 1rem;
+/* LEFT SIDE: Image Preview */
+.post-thumbnail {
+    flex: 0 0 300px; /* Fixed width for image */
+    background: #0f172a;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--border-subtle);
 }
 
-.post-link:hover, li h3 a:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-purple);
-}
-
-/* 3. Excerpt Text */
-.post-content, li p {
-    font-size: 1.1rem;
-    color: var(--text-main);
-    margin-top: 0.5rem;
-    /* Remove glass styling from inner paragraphs to avoid double-glass effect */
-    background: none;
-    border: none;
-    box-shadow: none;
-    backdrop-filter: none;
-    padding: 0;
-}
-
-/* =========================================
-   6. CODE & BUTTONS
-   ========================================= */
-pre, code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-}
-
-/* Inline code */
-p code {
-    background: rgba(189, 147, 249, 0.15);
-    color: var(--accent-purple);
-    padding: 2px 6px;
-    border-radius: var(--radius-sm);
-}
-
-/* Code Blocks */
-pre {
-    background: #020617;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
-    border-radius: var(--radius-sm);
-    overflow-x: auto;
-    margin: 1.5rem 0;
-}
-
-button, .btn {
-    background: transparent;
-    color: var(--accent-cyan);
-    font-family: 'JetBrains Mono', monospace;
-    padding: 12px 24px;
-    border: 1px solid var(--accent-cyan);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-}
-
-button:hover, .btn:hover {
-    background: rgba(100, 255, 218, 0.1);
-    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
-    transform: translateY(-2px);
-}
-
-/* =========================================
-   7. DECORATIVE MATRIX BOXES
-   ========================================= */
-.matrix-box {
-    position: absolute;
-    z-index: 1;       
-    background-color: #000;
-    border: 1px solid var(--border-color); 
-    overflow: hidden; 
-}
-
-.matrix-box canvas {
+.post-thumbnail img {
     width: 100%;
     height: 100%;
+    object-fit: cover; /* Ensures image fills area without stretching */
+    transition: transform 0.5s;
 }
 
-/* Left Cluster */
+/* Zoom image slightly on hover */
+.post-card:hover .post-thumbnail img {
+    transform: scale(1.05);
+}
+
+/* Fallback if no image */
+.no-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-deep);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: bold;
+    background: var(--text-muted);
+}
+
+/* RIGHT SIDE: Content */
+.post-details {
+    flex: 1; /* Takes remaining space */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.post-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.post-details h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.post-card:hover h3 {
+    color: var(--accent-cyan);
+}
+
+.post-details p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+    /* Limit to 3 lines of text */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* =========================================
+   6. GENERIC ELEMENTS
+   ========================================= */
+h1, h2, h3 { color: var(--text-main); }
+
+pre {
+    background: #020617;
+    border: 1px solid var(--border-subtle);
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* =========================================
+   7. CANVAS & MATRIX BOXES
+   ========================================= */
+.matrix-box {
+    position: absolute; z-index: 1; background-color: #000;
+    border: 1px solid var(--border-subtle); overflow: hidden;
+}
+.matrix-box canvas { width: 100%; height: 100%; }
 #matrix-box-1 { top: 50px; left: -80px; width: 240px; height: 240px; margin-right: 100px; }
-#matrix-box-2 { top: 320px; left: -320px; width: 400px; height: 360px; margin-right: 140px; }
-#matrix-box-3 { top: 710px; left: -100px; width: 240px; height: 240px; margin-right: 120px; }
-
-/* Right Cluster */
 #matrix-box-4 { top: 50px; right: -80px; width: 240px; height: 240px; margin-left: 100px; }
-#matrix-box-5 { top: 320px; right: -320px; width: 400px; height: 360px; margin-left: 140px; }
-#matrix-box-6 { top: 710px; right: -100px; width: 240px; height: 240px; margin-left: 120px; }
-
-/* Main Background Canvas (Fixed) */
-canvas {
-    /* This targets the JS particle canvas if it doesn't have an ID */
-    display: block;
-}
-/* If you gave your background canvas an ID, ensure this is set */
-#background-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-}
+#background-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
 
 /* =========================================
    8. RESPONSIVE DESIGN
    ========================================= */
 @media (max-width: 1400px) {
-    /* Hide matrix boxes when screen is too narrow for them */
     .matrix-box { display: none; }
 }
 
-@media (max-width: 950px) {
-    /* Adjust padding for mobile/tablet */
-    .site-header {
-        padding: 2rem 20px;
+@media (max-width: 768px) {
+    .post-card {
+        flex-direction: column; /* Stack Image on top of text */
+        height: auto;
     }
-    .container {
-        margin: 0 20px;
-        width: auto;
+    .post-thumbnail {
+        flex: none;
+        height: 200px;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
     }
-}
-
-@media (max-width: 600px) {
-    /* Stack Header vertically on phones */
-    .site-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+    .post-details {
+        padding: 1.5rem;
     }
-    
-    .site-nav .trigger {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+    .container { padding: 1.5rem; }
 }
