@@ -55,19 +55,22 @@ body {
 a { text-decoration: none; color: inherit; }
 
 /* =========================================
-   3. HEADER (Wide & Spaced Out)
+   3. HEADER (Aligned with Posts)
    ========================================= */
 .site-header {
     display: flex;
-    justify-content: space-between; /* Pushes Title Left, Nav Right */
+    justify-content: space-between; /* Push Title Left, Nav Right */
     align-items: center;
     
-    /* CHANGED: Use full width instead of narrow container width */
+    /* CRITICAL ALIGNMENT FIX */
     width: 100%;
-    max-width: 1400px; /* Matches your Matrix Box wrapper width */
+    /* This variable must match your post container width */
+    max-width: var(--container-width); 
     
-    margin: 0 auto; /* Centers the bar if screen is > 1400px */
-    padding: 2rem 40px; /* Add padding so they don't touch the very edge of the screen */
+    margin: 0 auto; /* Centers the invisible box */
+    
+    /* This padding must match your container padding to line up perfectly */
+    padding: 2rem 20px; 
     
     border-bottom: 1px solid var(--border-subtle);
     position: relative;
