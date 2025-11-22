@@ -1,63 +1,62 @@
+/* =========================================
+   1. VARIABLES & THEME SETUP
+   ========================================= */
 :root {
     /* PALETTE */
     --bg-deep: #0f172a;         /* Matches your canvas background */
-    --text-main: #e2e8f0;       /* Off-white, easier on eyes than pure white */
+    --text-main: #e2e8f0;       /* Off-white */
     --text-muted: #94a3b8;      /* Grey for dates/metadata */
-    --accent-cyan: #64ffda;     /* Matches your particles */
-    --accent-purple: #bd93f9;   /* Matches your math equations */
+    --accent-cyan: #64ffda;     /* Primary Action Color */
+    --accent-purple: #bd93f9;   /* Secondary/Hover Color */
     
-    /* GLASSMORPHISM (The key to readability) */
-    --glass-bg: rgba(15, 23, 42, 0.85); /* Dark, semi-transparent */
-    --glass-border: 1px solid rgba(100, 255, 218, 0.1);
+    /* BORDERS & GLASS */
+    --border-color: rgba(100, 255, 218, 0.1);
+    --glass-bg: rgba(15, 23, 42, 0.85); 
     --glass-blur: blur(12px);
     
     /* SPACING */
     --radius-sm: 4px;
     --radius-lg: 8px;
+    --container-width: 900px;
 }
 
-/* 1. TYPOGRAPHY 
-   Use a Sans-Serif for reading, Monospace for headers/code 
-*/
+/* =========================================
+   2. GLOBAL RESET & TYPOGRAPHY
+   ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap');
 
-body {
-    font-family: 'Inter', sans-serif; /* Clean reading font */
-    color: var(--text-main);
-    line-height: 1.7;
+* {
+    box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'JetBrains Mono', monospace; /* Code-like headers */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
     color: var(--text-main);
+    line-height: 1.7;
+    /* CRITICAL: Transparent so we see the JS canvas behind it */
+    background: transparent; 
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-main);
+    margin-top: 2rem;
     margin-bottom: 1rem;
     letter-spacing: -0.5px;
 }
 
 h1 {
     color: var(--accent-cyan);
-    text-shadow: 0 0 20px rgba(100, 255, 218, 0.2); /* Slight neon glow */
+    text-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
 }
 
-/* 2. THE "POST" CONTAINER 
-   This creates the frosted glass effect over the animation 
-*/
-article, .post-card, .container {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur); /* Blurs the dots behind the text */
-    -webkit-backdrop-filter: var(--glass-blur); /* Safari support */
-    border: var(--glass-border);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Depth */
-}
-
-/* 3. LINKS & INTERACTIONS */
+/* Links */
 a {
     color: var(--accent-cyan);
     text-decoration: none;
-    position: relative;
     transition: color 0.2s;
 }
 
@@ -65,29 +64,150 @@ a:hover {
     color: var(--accent-purple);
 }
 
-/* A cool "terminal" underline effect for links */
-a::after {
+/* =========================================
+   3. HEADER & NAVIGATION (FIXED)
+   ========================================= */
+.site-header {
+    display: flex;
+    justify-content: space-between; /* Pushes Title Left, Nav Right */
+    align-items: center;
+    max-width: var(--container-width);
+    margin: 0 auto; /* Centers the header strip */
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    z-index: 10;
+}
+
+.site-title, header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Navigation Links Container */
+.site-nav .trigger, nav {
+    display: flex;
+    gap: 30px; /* Space between Home / About */
+}
+
+.site-nav .page-link, nav a {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-main);
+    position: relative;
+}
+
+/* The "Underline" hover effect */
+.site-nav .page-link::after, nav a::after {
     content: '';
     display: block;
     width: 0;
-    height: 1px;
+    height: 2px;
     background: var(--accent-purple);
     transition: width 0.3s;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
 }
 
-a:hover::after {
+.site-nav .page-link:hover::after, nav a:hover::after {
     width: 100%;
 }
 
-/* 4. CODE BLOCKS (Crucial for your site) */
+/* =========================================
+   4. MAIN CONTAINER & CARDS
+   ========================================= */
+.main-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 40px auto;
+}
+
+/* The central column where text lives */
+.container, article, .post-content {
+    position: relative;
+    z-index: 5;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    max-width: var(--container-width);
+    margin: 0 auto 3rem auto; /* Centers it */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   5. POST LIST STYLING (FIXED)
+   ========================================= */
+ul.post-list, .home ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.post-list > li, .home ul > li {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 1. Date: Small & Muted */
+.post-meta, li span.post-meta {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+/* 2. Title: Big & Cyan */
+.post-link, li h3 a, li a.post-link {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.post-link:hover, li h3 a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-purple);
+}
+
+/* 3. Excerpt Text */
+.post-content, li p {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-top: 0.5rem;
+    /* Remove glass styling from inner paragraphs to avoid double-glass effect */
+    background: none;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+}
+
+/* =========================================
+   6. CODE & BUTTONS
+   ========================================= */
 pre, code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
 }
 
-/* Inline code (like `this`) */
+/* Inline code */
 p code {
-    background: rgba(189, 147, 249, 0.15); /* Low opacity purple */
+    background: rgba(189, 147, 249, 0.15);
     color: var(--accent-purple);
     padding: 2px 6px;
     border-radius: var(--radius-sm);
@@ -95,14 +215,14 @@ p code {
 
 /* Code Blocks */
 pre {
-    background: #020617; /* Darker than the card */
+    background: #020617;
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1.5rem;
     border-radius: var(--radius-sm);
     overflow-x: auto;
+    margin: 1.5rem 0;
 }
 
-/* 5. BUTTONS */
 button, .btn {
     background: transparent;
     color: var(--accent-cyan);
@@ -119,149 +239,80 @@ button, .btn {
 
 button:hover, .btn:hover {
     background: rgba(100, 255, 218, 0.1);
-    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4); /* Glow effect */
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
     transform: translateY(-2px);
 }
 
-/* 6. SCROLLBAR (Webkit only) 
-   Makes the scrollbar fit the theme instead of the ugly default grey 
-*/
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-deep);
-}
-::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-cyan);
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 600px) {
-    .site-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .site-nav {
-        margin-top: 10px;
-    }
-    .site-nav a {
-        margin-left: 0;
-        margin-right: 15px;
-    }
-
-}
-
-/* --- NEW: Asymmetric Matrix Boxes --- */
-
-/* --- NEW: Main Wrapper --- */
-.main-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1400px; /* NEW: Wider to accommodate more boxes */
-    margin: 40px auto;
-}
-
-/* 1. Main style for all boxes */
+/* =========================================
+   7. DECORATIVE MATRIX BOXES
+   ========================================= */
 .matrix-box {
-    position: absolute; /* <-- CHANGED */
-    z-index: 1;      
+    position: absolute;
+    z-index: 1;       
     background-color: #000;
     border: 1px solid var(--border-color); 
     overflow: hidden; 
 }
 
-/* 2. Style for the canvas inside any box */
 .matrix-box canvas {
     width: 100%;
     height: 100%;
 }
 
-/* 3. Your main content container */
-.container {
-    position: relative;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.85);
-    border: 1px solid var(--border-color);
-    padding: 20px 30px;
-    border-radius: 5px;
-    max-width: 900px; /* NEW: Slightly wider than before, but smaller than wrapper */
-    margin: 0 auto;
+/* Left Cluster */
+#matrix-box-1 { top: 50px; left: -80px; width: 240px; height: 240px; margin-right: 100px; }
+#matrix-box-2 { top: 320px; left: -320px; width: 400px; height: 360px; margin-right: 140px; }
+#matrix-box-3 { top: 710px; left: -100px; width: 240px; height: 240px; margin-right: 120px; }
+
+/* Right Cluster */
+#matrix-box-4 { top: 50px; right: -80px; width: 240px; height: 240px; margin-left: 100px; }
+#matrix-box-5 { top: 320px; right: -320px; width: 400px; height: 360px; margin-left: 140px; }
+#matrix-box-6 { top: 710px; right: -100px; width: 240px; height: 240px; margin-left: 120px; }
+
+/* Main Background Canvas (Fixed) */
+canvas {
+    /* This targets the JS particle canvas if it doesn't have an ID */
+    display: block;
 }
-
-/*
- * --- CLUSTERED MATRIX BOXES (NEW LAYOUT) ---
- * Tweak these values to get the exact look you want.
- * Note the 'margin-right' and 'margin-left' for separation.
- */
-
-/* --- LEFT CLUSTER --- */
-#matrix-box-1 {
-    top: 50px;
-    left: -80px;
-    width: 240px;
-    height: 240px; /* Square */
-    margin-right: 100px; /* Space from main content */
-}
-
-#matrix-box-2 {
-    top: 320px; /* Stacked below box 1 */
-    left: -320px; /* Slightly shifted */
-    width: 400px;
-    height: 360px; /* Square */
-    margin-right: 140px;
-}
-
-#matrix-box-3 {
-    top: 710px; /* Stacked below box 2 */
-    left: -100px;
-    width: 240px;
-    height: 240px; /* Square */
-    margin-right: 120px;
-}
-
-/* --- RIGHT CLUSTER --- */
-#matrix-box-4 {
-    top: 50px;
-    right: -80px;
-    width: 240px;
-    height: 240px; /* Square */
-    margin-left: 100px; /* Space from main content */
-}
-
-#matrix-box-5 {
-    top: 320px; /* Stacked below box 4 */
-    right: -320px; /* Slightly shifted */
-    width: 400px;
-    height: 360px; /* Square */
-    margin-left: 140px;
-}
-
-#matrix-box-6 {
-    top: 710px; /* Stacked below box 5 */
-    right: -100px;
-    width: 240px;
-    height: 240px; /* Square */
-    margin-left: 120px;
-}
-
+/* If you gave your background canvas an ID, ensure this is set */
 #background-canvas {
-    position: fixed; /* Fixes it to the viewport */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 1; /* Sits on top of the BODY background */
+    z-index: -1;
 }
 
-/* --- Responsive Design --- */
-/* Hide all matrix boxes when the wrapper starts to get too small */
-@media (max-width: 1400px) { /* NEW: Matches wrapper max-width */
-    .matrix-box {
-        display: none;
+/* =========================================
+   8. RESPONSIVE DESIGN
+   ========================================= */
+@media (max-width: 1400px) {
+    /* Hide matrix boxes when screen is too narrow for them */
+    .matrix-box { display: none; }
+}
+
+@media (max-width: 950px) {
+    /* Adjust padding for mobile/tablet */
+    .site-header {
+        padding: 2rem 20px;
+    }
+    .container {
+        margin: 0 20px;
+        width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Stack Header vertically on phones */
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .site-nav .trigger {
+        flex-wrap: wrap;
+        gap: 15px;
     }
 }
