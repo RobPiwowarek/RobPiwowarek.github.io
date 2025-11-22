@@ -25,12 +25,31 @@
 
 * { box-sizing: border-box; }
 
+/* UPDATE THIS BLOCK */
 body {
-    margin: 0; padding: 0;
-    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'JetBrains Mono', sans-serif;
     color: var(--text-main);
     line-height: 1.7;
-    background: transparent; /* Crucial for Canvas visibility */
+    background: transparent;
+    
+    /* NEW: Flexbox to push footer down */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Forces body to be at least screen height */
+}
+
+/* ADD/UPDATE THIS BLOCK */
+.site-footer {
+    margin-top: auto; /* Pushes footer to the bottom */
+    text-align: center; /* Centers the text */
+    padding: 2rem 0;
+    width: 100%;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-subtle); /* Optional top line */
 }
 
 a { text-decoration: none; color: inherit; }
@@ -71,21 +90,25 @@ a { text-decoration: none; color: inherit; }
 /* --- NAV FIX: TARGETING ALL LINKS --- */
 .site-nav .trigger { display: flex; gap: 25px; }
 
-/* We target 'a' directly to ensure Home/About get hit */
-.site-nav a, .site-nav .page-link {
+/* UPDATE THIS BLOCK */
+.site-nav .page-link, .site-nav a {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
-    color: var(--text-main) !important; /* Force color */
+    font-size: 0.95rem;
+    
+    /* CHANGED: was --text-main, now --accent-cyan */
+    color: var(--accent-cyan) !important; 
+    
     position: relative;
     transition: color 0.3s, text-shadow 0.3s;
-    display: inline-block;
+    text-decoration: none;
 }
 
-/* The Hover Glow */
-.site-nav a:hover, .site-nav .page-link:hover {
-    color: var(--accent-cyan) !important;
-    text-shadow: 0 0 10px rgba(100, 255, 218, 0.6);
+/* OPTIONAL: Make them glow Purple on hover (like the title) */
+.site-nav .page-link:hover, .site-nav a:hover {
+    color: var(--accent-purple) !important;
+    text-shadow: 0 0 10px rgba(189, 147, 249, 0.6);
     cursor: pointer;
+}rsor: pointer;
 }
 
 /* =========================================
