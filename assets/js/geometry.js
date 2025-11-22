@@ -1,5 +1,5 @@
  // 1. Setup Canvas
-        const canvas = document.createElement('canvas');
+        const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
         
         // Attach to body
