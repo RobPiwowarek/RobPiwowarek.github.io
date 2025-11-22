@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | {{ site.title }}</title>
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/rts_background.css">
 </head>
 <body>
+    
     <canvas id="background-canvas"></canvas>
 
-    <div class="main-wrapper">
-       <div class="container">
-           <header class="site-header">
-              <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-              <nav class="site-nav">
-                  <a href="{{ site.baseurl }}/">Home</a>
-                  <a href="{{ site.baseurl }}/about.html">About</a>
-              </nav>
-           </header>
+    <header class="site-header">
+        <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+        <nav class="site-nav">
+            <a href="{{ site.baseurl }}/">Home</a>
+            <a href="{{ site.baseurl }}/about.html">About</a>
+        </nav>
+    </header>
 
-           <main class="site-content">
-               {{ content }}
-           </main>
-
-           <footer class="site-footer">
-               <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. Powered by GitHub Pages.</p>
-           </footer>
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            {{ content }}
         </div>
-    </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. Powered by GitHub Pages.</p>
+    </footer>
+
     <script src="{{ site.baseurl }}/assets/js/geometry.js"></script>
+
 </body>
 </html>
