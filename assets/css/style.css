@@ -1,177 +1,143 @@
-/* --- Global Settings: Hacker Theme --- */
 :root {
-    --bg-color: #000000;      /* Czysta czerń */
-    --text-color: #00FF00;    /* Jasna zieleń */
-    --primary-color: #00FF00; /* Ta sama zieleń dla linków i nagłówków */
-    --surface-color: #111;   /* Bardzo ciemny szary dla tła */
-    --border-color: #00FF00;  /* Zielona ramka */
-    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    /* PALETTE */
+    --bg-deep: #0f172a;         /* Matches your canvas background */
+    --text-main: #e2e8f0;       /* Off-white, easier on eyes than pure white */
+    --text-muted: #94a3b8;      /* Grey for dates/metadata */
+    --accent-cyan: #64ffda;     /* Matches your particles */
+    --accent-purple: #bd93f9;   /* Matches your math equations */
+    
+    /* GLASSMORPHISM (The key to readability) */
+    --glass-bg: rgba(15, 23, 42, 0.85); /* Dark, semi-transparent */
+    --glass-border: 1px solid rgba(100, 255, 218, 0.1);
+    --glass-blur: blur(12px);
+    
+    /* SPACING */
+    --radius-sm: 4px;
+    --radius-lg: 8px;
 }
+
+/* 1. TYPOGRAPHY 
+   Use a Sans-Serif for reading, Monospace for headers/code 
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap');
 
 body {
-    font-family: var(--font-mono); /* Czcionka Monospace dla całego tekstu */
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    font-family: 'Inter', sans-serif; /* Clean reading font */
+    color: var(--text-main);
+    line-height: 1.7;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--primary-color);
-    line-height: 1.2;
+    font-family: 'JetBrains Mono', monospace; /* Code-like headers */
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
 }
 
+h1 {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 20px rgba(100, 255, 218, 0.2); /* Slight neon glow */
+}
+
+/* 2. THE "POST" CONTAINER 
+   This creates the frosted glass effect over the animation 
+*/
+article, .post-card, .container {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); /* Blurs the dots behind the text */
+    -webkit-backdrop-filter: var(--glass-blur); /* Safari support */
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Depth */
+}
+
+/* 3. LINKS & INTERACTIONS */
 a {
-    color: var(--primary-color);
-    text-decoration: underline; /* Podkreślenie pasuje do stylu retro */
+    color: var(--accent-cyan);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
 }
+
 a:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-color);
-    text-decoration: none;
+    color: var(--accent-purple);
 }
 
-hr {
-    border: 0;
-    border-top: 1px dashed var(--border-color); /* Zmieniono na linię przerywaną */
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid var(--border-color);
-    filter: grayscale(80%) brightness(0.8); /* Lekki filtr na obrazkach */
-}
-
-/* --- Header & Navigation --- */
-.site-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-color);
-    margin-bottom: 30px;
-}
-
-.site-title {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--primary-color);
-    text-decoration: none;
-}
-.site-title:hover {
-    background-color: transparent;
-    color: var(--primary-color);
-}
-
-/* EFEKT MRUGAJĄCEGO KURSORA */
-.site-title::after {
-    content: '_';
-    opacity: 1;
-    animation: blink 1s step-end infinite;
-}
-@keyframes blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-
-.site-nav a {
-    margin-left: 15px;
-    font-size: 1.1em;
-}
-
-/* --- Home Page: Post List --- */
-.post-list h2 {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 5px;
-}
-.post-list ul {
-    list-style: none;
-    padding: 0;
-}
-.post-list li {
-    margin-bottom: 25px;
-}
-.post-list .post-date {
+/* A cool "terminal" underline effect for links */
+a::after {
+    content: '';
     display: block;
-    font-size: 0.9em;
-    color: #999; /* Przygaszona zieleń/szarość */
-}
-.post-list .post-link {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-.post-list p {
-    margin-top: 5px;
+    width: 0;
+    height: 1px;
+    background: var(--accent-purple);
+    transition: width 0.3s;
 }
 
-
-/* --- Post & Page Content --- */
-.post h1, .page h1 {
-    margin-top: 0;
-}
-.post-date {
-    font-style: italic;
-    color: #999;
+a:hover::after {
+    width: 100%;
 }
 
-/* --- Blockquotes --- */
-blockquote {
-    border-left: 5px solid var(--primary-color);
-    background-color: var(--surface-color);
-    padding: 15px 20px;
-    margin: 20px 0;
-    font-style: italic;
-}
-blockquote cite {
-    display: block;
-    margin-top: 10px;
-    font-style: normal;
-    font-weight: bold;
-}
-
-/* --- Code Blocks (Programming) --- */
+/* 4. CODE BLOCKS (Crucial for your site) */
 pre, code {
-    font-family: var(--font-mono);
-    font-size: 0.9em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
 }
 
-/* Inline code */
-code {
-    background-color: var(--surface-color);
-    padding: 3px 5px;
-    border: 1px solid #333;
+/* Inline code (like `this`) */
+p code {
+    background: rgba(189, 147, 249, 0.15); /* Low opacity purple */
+    color: var(--accent-purple);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
 }
 
-/* Code blocks */
-pre.highlight, pre {
-    background-color: var(--surface-color);
-    padding: 15px;
+/* Code Blocks */
+pre {
+    background: #020617; /* Darker than the card */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
     overflow-x: auto;
-    border: 1px solid var(--border-color);
-}
-pre code {
-    background-color: transparent;
-    padding: 0;
-    border: none;
 }
 
-/* --- Footer --- */
-.site-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px dashed var(--border-color);
-    color: #999;
-    font-size: 0.9em;
+/* 5. BUTTONS */
+button, .btn {
+    background: transparent;
+    color: var(--accent-cyan);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 12px 24px;
+    border: 1px solid var(--accent-cyan);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+button:hover, .btn:hover {
+    background: rgba(100, 255, 218, 0.1);
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4); /* Glow effect */
+    transform: translateY(-2px);
+}
+
+/* 6. SCROLLBAR (Webkit only) 
+   Makes the scrollbar fit the theme instead of the ugly default grey 
+*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
 }
 
 /* --- Responsive Design --- */
