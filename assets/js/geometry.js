@@ -1,9 +1,8 @@
- // 1. Setup Canvas
+window.addEventListener('DOMContentLoaded', () => { 
+
+// 1. Setup Canvas
         const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
-        
-        // Attach to body
-        document.body.appendChild(canvas);
 
         // 2. Style Canvas (The Background Layer)
         canvas.style.position = 'fixed';
@@ -127,3 +126,4 @@
 
         init();
         animate();
+});
