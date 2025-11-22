@@ -55,15 +55,21 @@ body {
 a { text-decoration: none; color: inherit; }
 
 /* =========================================
-   3. HEADER & NAV (FIXED)
+   3. HEADER (Wide & Spaced Out)
    ========================================= */
 .site-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes Title Left, Nav Right */
     align-items: center;
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 2rem 20px; /* Added side padding for mobile safety */
+    
+    /* CHANGED: Use full width instead of narrow container width */
+    width: 100%;
+    max-width: 1400px; /* Matches your Matrix Box wrapper width */
+    
+    margin: 0 auto; /* Centers the bar if screen is > 1400px */
+    padding: 2rem 40px; /* Add padding so they don't touch the very edge of the screen */
+    
+    border-bottom: 1px solid var(--border-subtle);
     position: relative;
     z-index: 10;
 }
