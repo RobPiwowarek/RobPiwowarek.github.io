@@ -5,12 +5,12 @@
     /* PALETTE */
     --bg-deep: #0f172a;         /* Darkest Navy (Canvas Background) */
     --bg-card: #1e293b;         /* Lighter Slate (Post Cards) */
-    --bg-panel: rgba(30, 41, 59, 0.95); /* The Main Content Panel */
+    --bg-panel: rgba(30, 41, 59, 0.95); /* Main Content Panel */
     
-    --text-main: #e2e8f0;       
-    --text-muted: #94a3b8;      
-    --accent-cyan: #64ffda;     
-    --accent-purple: #bd93f9;   
+    --text-main: #e2e8f0;       /* Off-white */
+    --text-muted: #94a3b8;      /* Grey */
+    --accent-cyan: #64ffda;     /* Primary Highlight */
+    --accent-purple: #bd93f9;   /* Secondary Highlight */
     
     /* BORDERS & GLOW */
     --border-subtle: rgba(148, 163, 184, 0.1);
@@ -40,17 +40,18 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-main);
     line-height: 1.7;
+    /* CRITICAL: Transparent so the JS canvas behind is visible */
     background: transparent; 
 }
 
 a { text-decoration: none; color: inherit; }
 
 /* =========================================
-   3. HEADER (Terminal Style)
+   3. HEADER (Terminal Style & Glows)
    ========================================= */
 .site-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes Title Left, Nav Right */
     align-items: center;
     max-width: var(--container-width);
     margin: 0 auto;
@@ -60,15 +61,25 @@ a { text-decoration: none; color: inherit; }
     z-index: 10;
 }
 
-/* THE BLINKING CURSOR EFFECT */
-.site-title {
+/* THE SITE TITLE */
+.site-title, .site-title a {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--accent-cyan);
     margin: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
+/* Hover Effect for Title (Purple Glow) */
+.site-title:hover, .site-title a:hover {
+    color: var(--accent-purple);
+    text-shadow: 0 0 15px rgba(189, 147, 249, 0.6);
+    cursor: pointer;
+}
+
+/* The Blinking Cursor "_" */
 .site-title::after {
     content: '_';
     display: inline-block;
@@ -77,19 +88,26 @@ a { text-decoration: none; color: inherit; }
     color: var(--accent-purple);
 }
 
-/* Navigation */
+/* NAV LINKS */
 .site-nav .trigger { display: flex; gap: 30px; }
+
 .site-nav .page-link {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.95rem;
     color: var(--text-main);
     position: relative;
-    transition: color 0.3s;
+    transition: color 0.3s, text-shadow 0.3s;
 }
-.site-nav .page-link:hover { color: var(--accent-cyan); }
+
+/* Hover Effect for Links (Cyan Glow) */
+.site-nav .page-link:hover {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 8px rgba(100, 255, 218, 0.4);
+    cursor: pointer;
+}
 
 /* =========================================
-   4. MAIN CONTAINER (Distinct Blue)
+   4. MAIN CONTENT WRAPPERS
    ========================================= */
 .main-wrapper {
     position: relative;
@@ -98,13 +116,12 @@ a { text-decoration: none; color: inherit; }
     margin: 40px auto;
 }
 
+/* The slate blue panel where text lives */
 .container, article {
     position: relative;
     z-index: 5;
-    /* NEW COLOR: Lighter Slate Blue to stand out from black bg */
     background-color: var(--bg-panel); 
     border: 1px solid var(--border-subtle);
-    /* Subtle inner glow */
     box-shadow: inset 0 0 20px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.5); 
     padding: 3rem;
     border-radius: var(--radius-lg);
@@ -112,55 +129,82 @@ a { text-decoration: none; color: inherit; }
     margin: 0 auto 3rem auto;
 }
 
+/* General Typography inside posts */
+h1, h2, h3, h4 {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-main);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+h1 { color: var(--accent-cyan); }
+p { margin-bottom: 1.5rem; }
+
 /* =========================================
-   5. POST CARDS (New Layout)
+   5. POST CARDS (Alternating & Compact)
    ========================================= */
 .post-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem; /* Space between cards */
+    gap: 1.5rem;
 }
 
 /* The Card Container */
 .post-card {
-    display: flex; /* Flexbox for Side-by-Side */
+    display: flex; /* Side by side layout */
     background-color: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    height: 220px; /* Fixed height for consistency */
+    height: 180px; /* Compact Height */
+    text-decoration: none;
 }
 
-/* Hover Effects for Card */
+/* --- ALTERNATING LOGIC (Left/Right) --- */
+
+/* Odd posts: Image Left (Default) */
+.post-card .post-thumbnail {
+    border-right: 1px solid var(--border-subtle);
+}
+
+/* Even posts: Image Right */
+.post-card:nth-child(even) {
+    flex-direction: row-reverse; 
+}
+/* Fix border for flipped image */
+.post-card:nth-child(even) .post-thumbnail {
+    border-right: none;
+    border-left: 1px solid var(--border-subtle);
+}
+
+/* --- HOVER EFFECTS --- */
 .post-card:hover {
     transform: translateY(-3px);
     border-color: var(--accent-cyan);
     box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.15);
+    cursor: pointer;
 }
 
-/* LEFT SIDE: Image Preview */
+/* IMAGE SECTION */
 .post-thumbnail {
-    flex: 0 0 300px; /* Fixed width for image */
+    flex: 0 0 250px; /* Fixed width */
     background: #0f172a;
     position: relative;
     overflow: hidden;
-    border-right: 1px solid var(--border-subtle);
 }
 
 .post-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image fills area without stretching */
+    object-fit: cover;
     transition: transform 0.5s;
 }
 
-/* Zoom image slightly on hover */
 .post-card:hover .post-thumbnail img {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Subtle zoom */
 }
 
-/* Fallback if no image */
+/* Fallback Placeholder */
 .no-image-placeholder {
     width: 100%;
     height: 100%;
@@ -169,15 +213,15 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
     color: var(--bg-deep);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     background: var(--text-muted);
 }
 
-/* RIGHT SIDE: Content */
+/* CONTENT SECTION */
 .post-details {
-    flex: 1; /* Takes remaining space */
-    padding: 2rem;
+    flex: 1;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -185,15 +229,15 @@ a { text-decoration: none; color: inherit; }
 
 .post-meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
 }
 
 .post-details h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     font-weight: 700;
@@ -205,11 +249,11 @@ a { text-decoration: none; color: inherit; }
 }
 
 .post-details p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
     margin: 0;
     line-height: 1.5;
-    /* Limit to 3 lines of text */
+    /* Limit text to 3 lines */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -217,37 +261,76 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================================
-   6. GENERIC ELEMENTS
+   6. CODE BLOCKS & ELEMENTS
    ========================================= */
-h1, h2, h3 { color: var(--text-main); }
-
 pre {
     background: #020617;
     border: 1px solid var(--border-subtle);
     padding: 1.5rem;
     border-radius: 8px;
     overflow-x: auto;
+    margin: 1.5rem 0;
 }
 
 code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
-    background: rgba(255,255,255,0.05);
+}
+
+/* Inline code highlighting */
+p code {
+    background: rgba(189, 147, 249, 0.15);
+    color: var(--accent-purple);
     padding: 2px 5px;
     border-radius: 4px;
 }
 
+button, .btn {
+    background: transparent;
+    color: var(--accent-cyan);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 12px 24px;
+    border: 1px solid var(--accent-cyan);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+button:hover, .btn:hover {
+    background: rgba(100, 255, 218, 0.1);
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+}
+
 /* =========================================
-   7. CANVAS & MATRIX BOXES
+   7. DECORATIVE MATRIX BOXES & CANVAS
    ========================================= */
 .matrix-box {
     position: absolute; z-index: 1; background-color: #000;
     border: 1px solid var(--border-subtle); overflow: hidden;
 }
 .matrix-box canvas { width: 100%; height: 100%; }
+
+/* Positioning Clusters */
 #matrix-box-1 { top: 50px; left: -80px; width: 240px; height: 240px; margin-right: 100px; }
+#matrix-box-2 { top: 320px; left: -320px; width: 400px; height: 360px; margin-right: 140px; }
+#matrix-box-3 { top: 710px; left: -100px; width: 240px; height: 240px; margin-right: 120px; }
+
 #matrix-box-4 { top: 50px; right: -80px; width: 240px; height: 240px; margin-left: 100px; }
-#background-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
+#matrix-box-5 { top: 320px; right: -320px; width: 400px; height: 360px; margin-left: 140px; }
+#matrix-box-6 { top: 710px; right: -100px; width: 240px; height: 240px; margin-left: 120px; }
+
+/* The Main Background Script Canvas */
+#background-canvas, canvas {
+    /* Ensures canvas sits behind everything */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
 
 /* =========================================
    8. RESPONSIVE DESIGN
@@ -257,19 +340,31 @@ code {
 }
 
 @media (max-width: 768px) {
-    .post-card {
-        flex-direction: column; /* Stack Image on top of text */
+    /* Stack header */
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 2rem;
+    }
+
+    /* Stack Cards (Image on top, Text bottom) */
+    .post-card, .post-card:nth-child(even) {
+        flex-direction: column;
         height: auto;
     }
+    
     .post-thumbnail {
         flex: none;
-        height: 200px;
+        height: 180px;
         width: 100%;
         border-right: none;
+        border-left: none;
         border-bottom: 1px solid var(--border-subtle);
     }
-    .post-details {
+
+    .container {
         padding: 1.5rem;
+        margin: 0 1rem;
     }
-    .container { padding: 1.5rem; }
 }
