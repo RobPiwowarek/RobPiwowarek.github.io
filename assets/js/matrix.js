@@ -76,5 +76,5 @@ window.addEventListener('DOMContentLoaded', () => {
     createMatrixRain('matrix-canvas-4');
     //createMatrixRain('matrix-canvas-5');
     createMatrixRain('matrix-canvas-6');
-    createMatrixRain('background-canvas');
+    //createMatrixRain('background-canvas');
 });
