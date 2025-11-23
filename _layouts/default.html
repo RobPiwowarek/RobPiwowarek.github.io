@@ -11,21 +11,70 @@
     <canvas id="background-canvas"></canvas>
 
     <header class="site-header">
-        <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-        <nav class="site-nav">
-            <a href="{{ site.baseurl }}/">Home</a>
-            <a href="{{ site.baseurl }}/about.html">About</a>
-        </nav>
+        <div class="header-inner">
+            <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+            
+            <nav class="site-nav">
+                <a href="{{ site.baseurl }}/" class="nav-item">Home</a>
+                <a href="{{ site.baseurl }}/about.html" class="nav-item">About</a>
+                <a href="#" class="nav-item">Projects</a>
+                <a href="#" class="nav-item">CV</a>
+            </nav>
+        </div>
     </header>
 
     <main class="page-content" aria-label="Content">
-        <div class="wrapper">
-            {{ content }}
+        <div class="layout-grid">
+            
+            <section class="main-column">
+                {{ content }}
+            </section>
+
+            <aside class="sidebar-column">
+                
+                <div class="sidebar-widget bio-widget">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/150" alt="Profile">
+                    </div>
+                    <h4>Dev Status</h4>
+                    <p>Building engines & breaking shaders. Currently exploring WebGPU.</p>
+                </div>
+
+                <div class="sidebar-widget news-widget">
+                    <h4>> System_Log</h4>
+                    <ul class="news-list">
+                        <li>
+                            <span class="date">NOV 22</span>
+                            <a href="#">Released Physics Engine v1.0</a>
+                        </li>
+                        <li>
+                            <span class="date">OCT 15</span>
+                            <a href="#">Talk at GameDev Conf</a>
+                        </li>
+                        <li>
+                            <span class="date">SEP 01</span>
+                            <a href="#">Refactored Rendering Loop</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget stack-widget">
+                    <h4>Stack</h4>
+                    <div class="tags">
+                        <span>C++</span>
+                        <span>JS</span>
+                        <span>GLSL</span>
+                        <span>Unity</span>
+                    </div>
+                </div>
+
+            </aside>
+
         </div>
     </main>
 
     <footer class="site-footer">
-        <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. Powered by GitHub Pages.</p>
+        <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. System Online.</p>
     </footer>
 
     <script src="{{ site.baseurl }}/assets/js/geometry.js"></script>
