@@ -34,7 +34,7 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-main);
     line-height: 1.7;
-    background: transparent; /* CRITICAL: Lets Canvas show through */
+    background: transparent; 
     
     /* Footer Sticky Fix */
     display: flex;
@@ -49,8 +49,8 @@ a { text-decoration: none; color: inherit; }
    ========================================= */
 .site-header {
     width: 100%;
-    background: rgba(15, 23, 42, 0.85); /* Semi-transparent backing */
-    backdrop-filter: blur(10px);        /* Glass blur */
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-subtle);
     z-index: 100;
 }
@@ -136,7 +136,67 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================================
-   5. POST CARDS (Blue Theme Restored)
+   5. THE ELECTRIC BORDER SYSTEM (NEW!)
+   ========================================= */
+/* This section replaces standard borders with the spinning gradient */
+
+.post-card, .sidebar-widget {
+    position: relative;
+    z-index: 0; /* Stacking context for pseudo-elements */
+    border-radius: var(--radius-lg);
+    overflow: hidden; /* Contains the spinning gradient */
+    padding: 2px; /* acts as the "border width" */
+    
+    /* We remove the standard background/border here */
+    background: transparent; 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* 1. The Spinning Layer (::before) */
+.post-card::before, .sidebar-widget::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%; top: -50%; width: 200%; height: 200%;
+    background: conic-gradient(
+        transparent, 
+        rgba(100, 255, 218, 0.1), 
+        var(--accent-cyan), 
+        rgba(100, 255, 218, 0.1), 
+        transparent 40%
+    );
+    animation: spin-border 4s linear infinite;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s;
+}
+
+/* 2. The Background Mask (::after) - This creates the "Card" look */
+.post-card::after, .sidebar-widget::after {
+     content: '';
+     position: absolute;
+     z-index: -1;
+     left: 2px; top: 2px; /* Matches padding */
+     width: calc(100% - 4px); height: calc(100% - 4px);
+     background: var(--bg-card); /* The actual card color */
+     border-radius: calc(var(--radius-lg) - 2px);
+}
+
+/* 3. Hover Effects */
+.post-card:hover::before, .sidebar-widget:hover::before {
+    opacity: 1; /* Show the electric spin on hover */
+}
+
+.post-card:hover, .sidebar-widget:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.3);
+}
+
+@keyframes spin-border {
+    100% { transform: rotate(1turn); }
+}
+
+/* =========================================
+   6. POST CARDS (Layout Logic)
    ========================================= */
 .post-list {
     display: flex;
@@ -146,13 +206,8 @@ a { text-decoration: none; color: inherit; }
 
 .post-card {
     display: flex; 
-    /* THIS is the blue background color you were missing */
-    background-color: var(--bg-card); 
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     height: 180px; 
+    /* Background and border are now handled in Section 5 */
 }
 
 /* Alternating Logic */
@@ -160,20 +215,14 @@ a { text-decoration: none; color: inherit; }
 .post-card:nth-child(even) { flex-direction: row-reverse; }
 .post-card:nth-child(even) .post-thumbnail { border-right: none; border-left: 1px solid var(--border-subtle); }
 
-/* Hover Effects */
-.post-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent-cyan);
-    box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.15);
-}
-
 /* Image */
-.post-thumbnail { flex: 0 0 250px; background: #0f172a; position: relative; overflow: hidden; }
+.post-thumbnail { flex: 0 0 250px; background: #0f172a; position: relative; overflow: hidden; z-index: 1; }
 .post-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .post-card:hover .post-thumbnail img { transform: scale(1.05); }
 
 /* Card Content */
-.post-details { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+/* z-index: 1 ensures text sits above the background mask */
+.post-details { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; z-index: 1; }
 .post-details h3 { margin: 0 0 0.5rem 0; font-size: 1.3rem; color: var(--text-main); font-family: 'Inter', sans-serif; font-weight: 700; }
 .post-card:hover h3 { color: var(--accent-cyan); }
 .post-details p { font-size: 0.95rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 0; }
@@ -183,16 +232,15 @@ a { text-decoration: none; color: inherit; }
 .no-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--bg-deep); font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: bold; background: var(--text-muted); }
 
 /* =========================================
-   6. SIDEBAR WIDGETS (Blue Theme)
+   7. SIDEBAR WIDGETS (Layout Logic)
    ========================================= */
 .sidebar-widget {
-    /* Ensures the sidebar boxes match the post cards */
-    background: var(--bg-card); 
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    /* Padding handles the spacing inside the electric border */
+    padding: 1.5rem; 
 }
+
+/* Ensure content sits above the background mask */
+.sidebar-widget > * { position: relative; z-index: 1; }
 
 .sidebar-widget h4 {
     color: var(--accent-purple);
@@ -229,7 +277,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================================
-   7. SINGLE POST PAGE (Glass Panel)
+   8. SINGLE POST PAGE (Glass Panel)
    ========================================= */
 article.post {
     background-color: var(--bg-panel); 
@@ -243,7 +291,321 @@ article.post h1 { color: var(--accent-cyan); font-size: 2.5rem; margin-bottom: 0
 article.post .post-meta { border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; display: block; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
 
 /* =========================================
-   8. UTILITIES & FOOTER
+   9. UTILITIES & FOOTER
+   ========================================= */
+.site-footer {
+    margin-top: auto; text-align: center; padding: 2rem 0; width: 100%;
+    color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    border-top: 1px solid var(--border-subtle);
+    background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px);
+}
+
+pre { background: #020617; border: 1px solid var(--border-subtle); padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin: 1.5rem 0; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+p code { background: rgba(189, 147, 249, 0.15); color: var(--accent-purple); padding: 2px 5px; border-radius: 4px; }
+
+#background-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
+
+@media (max-width: 900px) {
+    .layout-grid { grid-template-columns: 1fr; }
+    .sidebar-column { order: 2; }
+    .post-card, .post-card:nth-child(even) { flex-direction: column; height: auto; }
+    .post-thumbnail { flex: none; height: 180px; width: 100%; border: none; border-bottom: 1px solid var(--border-subtle); }
+    article.post { padding: 1.5rem; }
+}/* =========================================
+   1. VARIABLES & THEME SETUP
+   ========================================= */
+:root {
+    /* PALETTE */
+    --bg-deep: #0f172a;         /* Darkest Navy (Canvas Background) */
+    --bg-card: #1e293b;         /* Lighter Slate (Cards & Widgets) */
+    --bg-panel: rgba(30, 41, 59, 0.95); /* Single Post Background */
+    
+    --text-main: #e2e8f0;       /* Off-white */
+    --text-muted: #94a3b8;      /* Grey */
+    --accent-cyan: #64ffda;     /* Primary Highlight */
+    --accent-purple: #bd93f9;   /* Secondary Highlight */
+    
+    /* BORDERS & GLOW */
+    --border-subtle: rgba(148, 163, 184, 0.1);
+    --border-highlight: rgba(100, 255, 218, 0.3);
+    
+    /* SPACING */
+    --radius-lg: 12px;
+}
+
+/* =========================================
+   2. GLOBAL RESET & TYPOGRAPHY
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    line-height: 1.7;
+    background: transparent; 
+    
+    /* Footer Sticky Fix */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* =========================================
+   3. HEADER SYSTEM (Stacked Bar)
+   ========================================= */
+.site-header {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle);
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Title Styling */
+.site-title, .site-title a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    align-self: flex-start;
+}
+.site-title:hover {
+    color: var(--accent-purple);
+    text-shadow: 0 0 15px rgba(189, 147, 249, 0.6);
+    cursor: pointer;
+}
+.site-title::after {
+    content: '_'; display: inline-block; margin-left: 5px;
+    animation: blink 1s step-end infinite; color: var(--accent-purple);
+}
+
+/* Nav Bar Styling */
+.site-nav {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    border-top: 1px solid var(--border-subtle);
+    padding: 1rem 0;
+}
+
+.nav-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.nav-item:hover {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 8px rgba(100, 255, 218, 0.4);
+    cursor: pointer;
+}
+
+/* =========================================
+   4. DASHBOARD GRID LAYOUT
+   ========================================= */
+.page-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.layout-grid {
+    display: grid;
+    /* COLUMN 1: Flexible, COLUMN 2: Fixed 300px */
+    grid-template-columns: minmax(0, 1fr) 300px; 
+    gap: 40px; 
+    width: 100%;
+    max-width: 1200px; 
+    padding: 0 20px;
+}
+
+.main-column { min-width: 0; }
+
+.sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* =========================================
+   5. THE ELECTRIC BORDER SYSTEM (NEW!)
+   ========================================= */
+/* This section replaces standard borders with the spinning gradient */
+
+.post-card, .sidebar-widget {
+    position: relative;
+    z-index: 0; /* Stacking context for pseudo-elements */
+    border-radius: var(--radius-lg);
+    overflow: hidden; /* Contains the spinning gradient */
+    padding: 2px; /* acts as the "border width" */
+    
+    /* We remove the standard background/border here */
+    background: transparent; 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* 1. The Spinning Layer (::before) */
+.post-card::before, .sidebar-widget::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%; top: -50%; width: 200%; height: 200%;
+    background: conic-gradient(
+        transparent, 
+        rgba(100, 255, 218, 0.1), 
+        var(--accent-cyan), 
+        rgba(100, 255, 218, 0.1), 
+        transparent 40%
+    );
+    animation: spin-border 4s linear infinite;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s;
+}
+
+/* 2. The Background Mask (::after) - This creates the "Card" look */
+.post-card::after, .sidebar-widget::after {
+     content: '';
+     position: absolute;
+     z-index: -1;
+     left: 2px; top: 2px; /* Matches padding */
+     width: calc(100% - 4px); height: calc(100% - 4px);
+     background: var(--bg-card); /* The actual card color */
+     border-radius: calc(var(--radius-lg) - 2px);
+}
+
+/* 3. Hover Effects */
+.post-card:hover::before, .sidebar-widget:hover::before {
+    opacity: 1; /* Show the electric spin on hover */
+}
+
+.post-card:hover, .sidebar-widget:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.3);
+}
+
+@keyframes spin-border {
+    100% { transform: rotate(1turn); }
+}
+
+/* =========================================
+   6. POST CARDS (Layout Logic)
+   ========================================= */
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post-card {
+    display: flex; 
+    height: 180px; 
+    /* Background and border are now handled in Section 5 */
+}
+
+/* Alternating Logic */
+.post-card .post-thumbnail { border-right: 1px solid var(--border-subtle); }
+.post-card:nth-child(even) { flex-direction: row-reverse; }
+.post-card:nth-child(even) .post-thumbnail { border-right: none; border-left: 1px solid var(--border-subtle); }
+
+/* Image */
+.post-thumbnail { flex: 0 0 250px; background: #0f172a; position: relative; overflow: hidden; z-index: 1; }
+.post-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.post-card:hover .post-thumbnail img { transform: scale(1.05); }
+
+/* Card Content */
+/* z-index: 1 ensures text sits above the background mask */
+.post-details { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; z-index: 1; }
+.post-details h3 { margin: 0 0 0.5rem 0; font-size: 1.3rem; color: var(--text-main); font-family: 'Inter', sans-serif; font-weight: 700; }
+.post-card:hover h3 { color: var(--accent-cyan); }
+.post-details p { font-size: 0.95rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 0; }
+.post-details .post-meta { font-size: 0.75rem; margin-bottom: 0.5rem; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+
+/* Fallback Image */
+.no-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--bg-deep); font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: bold; background: var(--text-muted); }
+
+/* =========================================
+   7. SIDEBAR WIDGETS (Layout Logic)
+   ========================================= */
+.sidebar-widget {
+    /* Padding handles the spacing inside the electric border */
+    padding: 1.5rem; 
+}
+
+/* Ensure content sits above the background mask */
+.sidebar-widget > * { position: relative; z-index: 1; }
+
+.sidebar-widget h4 {
+    color: var(--accent-purple);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.5rem;
+}
+
+/* Bio */
+.profile-pic {
+    width: 80px; height: 80px; border-radius: 50%; overflow: hidden;
+    border: 2px solid var(--accent-cyan); margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+}
+.profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+/* News List */
+.news-list { list-style: none; padding: 0; margin: 0; }
+.news-list li { margin-bottom: 1rem; font-size: 0.9rem; display: flex; flex-direction: column; }
+.news-list .date { color: var(--text-muted); font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.news-list a { color: var(--text-main); font-weight: 600; transition: color 0.2s; }
+.news-list a:hover { color: var(--accent-cyan); text-decoration: underline; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span {
+    background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;
+    font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-cyan); border: 1px solid var(--border-subtle);
+}
+
+/* =========================================
+   8. SINGLE POST PAGE (Glass Panel)
+   ========================================= */
+article.post {
+    background-color: var(--bg-panel); 
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 3rem;
+}
+article.post h1 { color: var(--accent-cyan); font-size: 2.5rem; margin-bottom: 0.5rem; }
+article.post .post-meta { border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; display: block; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+/* =========================================
+   9. UTILITIES & FOOTER
    ========================================= */
 .site-footer {
     margin-top: auto; text-align: center; padding: 2rem 0; width: 100%;
