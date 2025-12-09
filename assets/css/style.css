@@ -254,6 +254,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* Bio */
+.bio-widget { text-align: center; }
 .profile-pic {
     width: 80px; height: 80px; border-radius: 50%; overflow: hidden;
     border: 2px solid var(--accent-cyan); margin-bottom: 1rem;
