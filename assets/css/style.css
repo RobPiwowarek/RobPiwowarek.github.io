@@ -637,3 +637,98 @@ p code { background: rgba(189, 147, 249, 0.15); color: var(--accent-purple); pad
     .post-thumbnail { flex: none; height: 180px; width: 100%; border: none; border-bottom: 1px solid var(--border-subtle); }
     article.post { padding: 1.5rem; }
 }
+
+/* =========================================
+   10. PAGINATION SYSTEM (Cyberpunk Style)
+   ========================================= */
+.pagination {
+    display: flex;
+    justify_content: center;
+    align_items: center;
+    gap: 20px;
+    margin: 60px 0 20px 0; /* Spacing from the last post */
+    font-family: 'JetBrains Mono', monospace; /* Matching your headers */
+}
+
+/* The Buttons (Next/Prev) */
+.pagination a {
+    position: relative;
+    padding: 12px 24px;
+    background: var(--bg-card); /* Matches your widget background */
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px; /* Slightly sharp corners look more "tech" */
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+/* Hover Effect: Cyan Glow + Lift */
+.pagination a:hover {
+    color: var(--bg-deep); /* Text turns dark */
+    background: var(--accent-cyan); /* Background fills with Cyan */
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(100, 255, 218, 0.4); /* Neon Glow */
+    transform: translateY(-2px);
+}
+
+/* The Page Number Text */
+.pagination .page_number {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0 10px;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+}
+
+/* Disabled State (faded out) */
+.pagination .disabled {
+    color: rgba(148, 163, 184, 0.2); /* Very faint ghost text */
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* =========================================
+   11. FOCUS MODE (Single Post)
+   ========================================= */
+
+/* When the sidebar is hidden, switch grid to 1 column and center it */
+.layout-grid.focus-mode {
+    grid-template-columns: 1fr; /* Force single column */
+    max-width: 800px;           /* Limit width for better readability */
+    margin: 0 auto;             /* Center the container */
+}
+
+/* Ensure the main column takes up the full available width */
+.layout-grid.focus-mode .main-column {
+    width: 100%;
+}
+
+
+/* =========================================
+   12. IMAGE FIXES
+   ========================================= */
+
+/* This stops images from overflowing the container */
+.main-column img {
+    max-width: 100%;    /* Never wider than the text column */
+    height: auto;       /* Maintain aspect ratio */
+    display: block;     /* Removes weird gap at bottom */
+    margin: 20px auto;  /* Centers image with vertical spacing */
+
+    /* Optional: Style to match your theme */
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Fix for iframes (YouTube embeds) */
+.main-column iframe {
+    max-width: 100%;
+}

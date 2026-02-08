@@ -24,14 +24,15 @@
     </header>
 
     <main class="page-content" aria-label="Content">
-        <div class="layout-grid">
-            
+        <div class="layout-grid {% if page.layout == 'post' %}focus-mode{% endif %}">
+
             <section class="main-column">
                 {{ content }}
             </section>
 
+            {% unless page.layout == 'post' %}
             <aside class="sidebar-column">
-                
+
                 <div class="sidebar-widget bio-widget">
                     <div class="profile-pic">
                         <img src="https://via.placeholder.com/150" alt="Profile">
@@ -69,6 +70,7 @@
                 </div>
 
             </aside>
+            {% endunless %}
 
         </div>
     </main>
