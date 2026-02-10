@@ -95,7 +95,7 @@ video {
   width: 100%;       /* Or your specific width */
   height: 400px;     /* Or your specific height */
   object-fit: cover; /* Ensures the video fills the area */
-  object-position: center; /* Forces the focus to the middle */
+  object-position: 70% center; /* Forces the focus to the middle */
 }
 
 /* =========================================
