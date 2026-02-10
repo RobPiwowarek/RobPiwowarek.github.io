@@ -18,3 +18,5 @@ paginate_path: "/page/:num/"
 # Add this section to enable the plugin
 plugins:
   - jekyll-paginate
+
+include: ['_pages']
