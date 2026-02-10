@@ -1,8 +1,8 @@
 # Site Settings
-title: Code & Conquest
-description: A blog about programming deep dives and gaming adventures.
-author: Your Name
-github_username: your-username
+title: Software Brewery
+description: A game development blog
+author: Robert Piwowarek
+github_username: robpiwowarek
 
 # Build Settings
 markdown: kramdown

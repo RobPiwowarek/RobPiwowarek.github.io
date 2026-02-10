@@ -3,10 +3,8 @@ layout: page
 title: About
 ---
 
-Welcome to Code & Conquest!
+Welcome to Software Brewery!
 
 This is a blog dedicated to two passions: **software development** and **video games**.
 
-
-<forced change to invoke build23456789000>
 ...
