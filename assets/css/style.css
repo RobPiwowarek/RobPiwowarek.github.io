@@ -91,6 +91,13 @@ h1, h2, h3, h4, h5, h6 {
 .wc3-panel::before { top: 6px; left: 6px; }
 .wc3-panel::after { top: 6px; right: 6px; }
 
+video {
+  width: 100%;       /* Or your specific width */
+  height: 400px;     /* Or your specific height */
+  object-fit: cover; /* Ensures the video fills the area */
+  object-position: center; /* Forces the focus to the middle */
+}
+
 /* =========================================
    4. LAYOUT GRID
    ========================================= */
