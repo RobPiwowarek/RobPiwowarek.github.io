@@ -3,53 +3,54 @@ layout: default
 title: Home
 ---
 
-<div class="post-list">
-    {% for post in paginator.posts %}
-
-    <a class="post-card" href="{{ post.url | relative_url }}">
-
-        <div class="post-thumbnail">
-            {% if post.image %}
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
-            {% else %}
-            <div class="no-image-placeholder">
-                &lt;/&gt;
-            </div>
-            {% endif %}
+{% for post in paginator.posts %}
+<article class="wc3-panel quest-card">
+    <div class="quest-thumb">
+        {% if post.image %}
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+        {% else %}
+        <img src="https://images.unsplash.com/photo-1614726365723-49cfae9278b7?auto=format&fit=crop&w=400&q=60" alt="Quest Icon">
+        {% endif %}
+    </div>
+    <div class="quest-body">
+        <div class="quest-title">{{ post.title }}</div>
+        <div class="quest-meta">Quest • {{ post.date | date: "%B %d, %Y" }}</div>
+        <div class="quest-excerpt">
+            {{ post.excerpt | strip_html | truncatewords: 25 }}
         </div>
-
-        <div class="post-details">
-            <span class="post-meta">{{ post.date | date: "%B %d, %Y" }}</span>
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-        </div>
-
-    </a>
-    {% endfor %}
-</div>
+        <a href="{{ post.url | relative_url }}" style="align-self: flex-start;">
+            <button class="res-item" style="background: #111; color: var(--gold); border: 1px solid #555;">
+                Read Log
+            </button>
+        </a>
+    </div>
+</article>
+{% endfor %}
 
 {% if paginator.total_pages > 1 %}
-<div class="pagination">
+<div class="pagination-container">
+    <div class="wc3-panel pagination-inner">
 
-    {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">
-        &laquo; Newer Posts
-    </a>
-    {% else %}
-    <span class="previous disabled">&laquo; Newer Posts</span>
-    {% endif %}
+        {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="page-btn" title="Newer">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        {% else %}
+        <div class="page-btn disabled" style="opacity:0.3"><i class="fas fa-chevron-left"></i></div>
+        {% endif %}
 
-    <span class="page_number">
-    Page {{ paginator.page }} of {{ paginator.total_pages }}
-  </span>
+        <div class="page-counter">
+            <span class="page-current">{{ paginator.page }}</span> / {{ paginator.total_pages }}
+        </div>
 
-    {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="next">
-        Older Posts &raquo;
-    </a>
-    {% else %}
-    <span class="next disabled">Older Posts &raquo;</span>
-    {% endif %}
+        {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="page-btn" title="Older">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% else %}
+        <div class="page-btn disabled" style="opacity:0.3"><i class="fas fa-chevron-right"></i></div>
+        {% endif %}
 
+    </div>
 </div>
 {% endif %}

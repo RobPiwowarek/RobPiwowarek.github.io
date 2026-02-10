@@ -4,82 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
 </head>
 <body>
-    
-    <canvas id="background-canvas"></canvas>
 
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-            
-            <nav class="site-nav">
-                <a href="{{ site.baseurl }}/" class="nav-item">Home</a>
-                <a href="{{ site.baseurl }}/about.html" class="nav-item">About</a>
-                <a href="#" class="nav-item">Projects</a>
-                <a href="#" class="nav-item">CV</a>
-            </nav>
+<canvas id="bg-canvas"></canvas>
+
+<nav class="resource-bar">
+    <a href="{{ site.baseurl }}/" class="res-item">
+        <div class="res-icon"><i class="fas fa-home"></i></div>
+        <div class="res-val">Home</div>
+    </a>
+    <a href="{{ site.baseurl }}/about.html" class="res-item">
+        <div class="res-icon"><i class="fas fa-helmet-safety"></i></div>
+        <div class="res-val">About</div>
+    </a>
+    <a href="#" class="res-item">
+        <div class="res-icon"><i class="fas fa-hammer"></i></div>
+        <div class="res-val">Projects</div>
+    </a>
+    <a href="#" class="res-item">
+        <div class="res-icon"><i class="fas fa-scroll"></i></div>
+        <div class="res-val">CV</div>
+    </a>
+</nav>
+
+<div class="container">
+
+    <aside class="sidebar-column">
+        <div class="wc3-panel">
+            <a href="{{ site.baseurl }}/about.html" class="portrait-frame" title="View Profile">
+                <img src="https://media.tenor.com/JjKk4-DkCw8AAAAC/arthas-warcraft3.gif" alt="Portrait">
+            </a>
+            <div class="hero-info">
+                <h3>{{ site.author | default: "Hero Name" }}</h3>
+                <div class="hero-class">Level 20 Developer</div>
+            </div>
+            <div class="inv-header">Attributes</div>
+            <table class="skills-table">
+                <tr><td><i class="fas fa-code skill-icon"></i> C++</td><td class="skill-val">10</td></tr>
+                <tr><td><i class="fas fa-gamepad skill-icon"></i> Engines</td><td class="skill-val">8</td></tr>
+                <tr><td><i class="fas fa-cube skill-icon"></i> GLSL</td><td class="skill-val">7</td></tr>
+                <tr><td><i class="fas fa-bug skill-icon"></i> Debug</td><td class="skill-val">9</td></tr>
+            </table>
         </div>
-    </header>
 
-    <main class="page-content" aria-label="Content">
-        <div class="layout-grid {% if page.layout == 'post' %}focus-mode{% endif %}">
-
-            <section class="main-column">
-                {{ content }}
-            </section>
-
-            {% unless page.layout == 'post' %}
-            <aside class="sidebar-column">
-
-                <div class="sidebar-widget bio-widget">
-                    <div class="profile-pic">
-                        <img src="https://via.placeholder.com/150" alt="Profile">
-                    </div>
-                    <h4>Dev Status</h4>
-                    <p>Building engines & breaking shaders. Currently exploring WebGPU.</p>
-                </div>
-
-                <div class="sidebar-widget news-widget">
-                    <h4>> System_Log</h4>
-                    <ul class="news-list">
-                        <li>
-                            <span class="date">NOV 22</span>
-                            <a href="#">Released Physics Engine v1.0</a>
-                        </li>
-                        <li>
-                            <span class="date">OCT 15</span>
-                            <a href="#">Talk at GameDev Conf</a>
-                        </li>
-                        <li>
-                            <span class="date">SEP 01</span>
-                            <a href="#">Refactored Rendering Loop</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="sidebar-widget stack-widget">
-                    <h4>Stack</h4>
-                    <div class="tags">
-                        <span>C++</span>
-                        <span>JS</span>
-                        <span>GLSL</span>
-                        <span>Unity</span>
-                    </div>
-                </div>
-
-            </aside>
-            {% endunless %}
-
+        <div class="wc3-panel">
+            <div class="inv-header">Equipment</div>
+            <div class="inv-grid">
+                <a href="#" class="inv-slot" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" class="inv-slot" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="inv-slot" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="inv-slot" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
         </div>
+    </aside>
+
+    <main class="quest-list">
+        {{ content }}
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }}. System Online.</p>
-    </footer>
+</div>
 
-    <script src="{{ site.baseurl }}/assets/js/geometry.js"></script>
+<footer class="stats-footer">
+    <div class="stats-row">
+        <div class="stat-item"><span>{{ site.posts.size }}</span> Quests Completed</div>
+        <div class="stat-item"><span>Online</span> System Status</div>
+        <div class="stat-item" style="color: #444;">&copy; {{ "now" | date: "%Y" }}</div>
+    </div>
+</footer>
 
+<script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, cx, cy;
+    const gridSize = 40;
+    let particles = [];
+    const gridColor = 'rgba(255, 255, 255, 0.02)';
+    const pulseColor = 'rgba(255, 215, 0, 0.25)';
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        cx = Math.floor((width / 2) / gridSize) * gridSize;
+        cy = Math.floor((height / 2) / gridSize) * gridSize;
+    }
+
+    class Electron {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = cx; this.y = cy;
+            this.history = []; this.maxHistory = 25;
+            this.dead = false; this.speed = 5;
+            this.pickOutwardDirection();
+        }
+        pickOutwardDirection() {
+            let potentialDirs = [];
+            if (this.x <= cx) potentialDirs.push({x: -1, y: 0});
+            if (this.x >= cx) potentialDirs.push({x: 1, y: 0});
+            if (this.y <= cy) potentialDirs.push({x: 0, y: -1});
+            if (this.y >= cy) potentialDirs.push({x: 0, y: 1});
+            if (this.dir) potentialDirs = potentialDirs.filter(d => d.x !== -this.dir.x || d.y !== -this.dir.y);
+
+            if (potentialDirs.length > 0) {
+                if (this.dir && potentialDirs.some(d => d.x === this.dir.x && d.y === this.dir.y) && Math.random() > 0.3) {
+                } else { this.dir = potentialDirs[Math.floor(Math.random() * potentialDirs.length)]; }
+            } else { this.dir = {x:1, y:0}; }
+        }
+        update() {
+            this.x += this.dir.x * this.speed;
+            this.y += this.dir.y * this.speed;
+            this.history.push({x: this.x, y: this.y});
+            if (this.history.length > this.maxHistory) this.history.shift();
+            if (this.x % gridSize === 0 && this.y % gridSize === 0) this.pickOutwardDirection();
+            if (this.x < -50 || this.x > width+50 || this.y < -50 || this.y > height+50) this.dead = true;
+        }
+        draw() {
+            if (this.history.length < 2) return;
+            ctx.beginPath();
+            ctx.moveTo(this.history[0].x, this.history[0].y);
+            for (let i = 1; i < this.history.length; i++) ctx.lineTo(this.history[i].x, this.history[i].y);
+            ctx.strokeStyle = pulseColor; ctx.lineWidth = 1.5;
+            ctx.shadowBlur = 5; ctx.shadowColor = '#ffd700'; ctx.stroke(); ctx.shadowBlur = 0;
+        }
+    }
+
+    function drawGrid() {
+        ctx.strokeStyle = gridColor; ctx.lineWidth = 1; ctx.beginPath();
+        for (let x = 0; x <= width; x += gridSize) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+        for (let y = 0; y <= height; y += gridSize) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+        ctx.stroke();
+    }
+
+    function init() { resize(); loop(); }
+    function loop() {
+        ctx.clearRect(0, 0, width, height);
+        drawGrid();
+        for(let i = 0; i < 2; i++) particles.push(new Electron());
+        if (particles.length > 400) particles.splice(0, particles.length - 400);
+        for (let i = particles.length - 1; i >= 0; i--) {
+            let p = particles[i]; p.update(); p.draw();
+            if (p.dead) particles.splice(i, 1);
+        }
+        requestAnimationFrame(loop);
+    }
+    window.addEventListener('resize', resize);
+    init();
+</script>
 </body>
 </html>
