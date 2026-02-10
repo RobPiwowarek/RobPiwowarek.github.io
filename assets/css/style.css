@@ -212,3 +212,20 @@ h1, h2, h3, h4, h5, h6 {
     .quest-thumb { width: 100%; height: 180px; margin-bottom: 15px; }
     .resource-bar { flex-wrap: wrap; gap: 10px; }
 }
+
+/* =========================================
+   CORE STYLES (Add this section)
+   ========================================= */
+
+* { box-sizing: border-box; }
+
+/* GLOBAL IMAGE RESET
+   This ensures images never overflow their container
+   and maintain their aspect ratio. */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Removes the tiny whitespace gap at the bottom of inline images */
+}
+
+/* ... rest of your CSS ... */
