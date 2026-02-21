@@ -1,20 +1,20 @@
 ---
 layout: default
 ---
-<article class="wc3-panel" itemscope itemtype="http://schema.org/BlogPosting">
+<article id="single-post-view" class="view-section rts-frame active">
+  <a href="{{ site.baseurl }}/" class="back-btn" style="text-decoration: none;">← Return to Feed</a>
 
-  <header class="post-header" style="text-align: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 20px;">
-    <h1 class="post-title" itemprop="name headline" style="font-size: 2rem;">{{ page.title | escape }}</h1>
-
-    <p class="post-meta" style="font-family: 'Cinzel'; color: #777;">
-      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {{ page.date | date: "%B %d, %Y" }}
-      </time>
-    </p>
-  </header>
-
-  <div class="post-content" itemprop="articleBody">
-    {{ content }}
+  <div id="single-post-content">
+    <header>
+      <h1>{{ page.title }}</h1>
+      <div class="post-meta">
+        <div>By <span>{{ site.author | default: "Kowalski" }}</span></div>
+        <div>Posted <span>{{ page.date | date: "%B %d, %Y" }}</span></div>
+        {% if page.category %}<div>Category <span>{{ page.category }}</span></div>{% endif %}
+      </div>
+    </header>
+    <div class="post-content">
+      {{ content }}
+    </div>
   </div>
-
 </article>

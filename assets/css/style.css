@@ -1,240 +1,254 @@
-/* =========================================
-   1. CORE & TYPOGRAPHY
-   ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Spectral:wght@400;600&display=swap');
+ :root {
+            /* RTS UI Colors */
+            --wood-dark: #1e1104;
+            --wood-base: #3e230a;
+            --wood-light: #5a3612;
+            --iron-dark: #111;
+            --iron-base: #2a2a2a;
+            --iron-light: #444;
+            --stone-base: #2a2a2a;
+            --gold-text: #ffd100;
+            --gold-dark: #b58900;
+            --green-text: #4ade80;
+            --epic-purple: #a335ee;
+            --bg-page: #050505;
+        }
 
-:root {
-    --gold: #ffd700;
-    --gold-dim: #998100;
-    --text-main: #ccc;
-    --border-iron: #4a4a4a;
-    --bg-dark: #020202;
-    --panel-bg: rgba(30,30,30,0.95);
-}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-* { box-sizing: border-box; }
+        body {
+            background-color: var(--bg-page);
+            background-image: 
+                radial-gradient(circle at center top, #1a1510 0%, #000 100%),
+                repeating-linear-gradient(45deg, rgba(17,17,17,0.5) 0px, rgba(17,17,17,0.5) 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px);
+            color: #e0e0e0; font-family: 'Open Sans', sans-serif; min-height: 100vh;
+            display: flex; flex-direction: column; overflow-x: hidden;
+        }
 
-body {
-    margin: 0; padding: 0;
-    font-family: 'Spectral', serif;
-    color: var(--text-main);
-    background-color: var(--bg-dark);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-}
+        h1, h2, h3, h4 { font-family: 'Cinzel', serif; color: var(--gold-text); text-shadow: 2px 2px 4px #000; }
 
-/* Background Canvas */
-#bg-canvas {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -2;
-}
+        /* =========================================
+           TOP HEADER
+           ========================================= */
+        header {
+            position: sticky; top: 0; width: 100%;
+            background: linear-gradient(to bottom, #333, #111); border-bottom: 4px solid #000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.9), inset 0 2px 2px rgba(255,255,255,0.1);
+            border-image: linear-gradient(to right, #1a1a1a, #2e8b22, #1a1a1a) 1;
+            z-index: 1000; display: flex; justify-content: center;
+        }
 
-/* Vignette overlay */
-body::after {
-    content: "";
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, #000 90%);
-    pointer-events: none; z-index: -1;
-}
+        .header-inner {
+            width: 100%; max-width: 1350px; height: 60px;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 15px; position: relative;
+        }
 
-a { text-decoration: none; color: inherit; transition: 0.2s; }
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cinzel', serif;
-    color: var(--gold);
-    text-shadow: 1px 1px 0 #000;
-    margin: 0 0 15px 0;
-}
+        .nav-region { flex: 1; display: flex; justify-content: flex-start; max-width: 45%; }
+        .stats-region { flex: 1; display: flex; justify-content: flex-end; max-width: 45%; }
+        .nav-links, .site-stats { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* =========================================
-   2. UI: RESOURCE BAR (Navigation)
-   ========================================= */
-.resource-bar {
-    background: rgba(10, 10, 10, 0.95);
-    border-bottom: 2px solid var(--border-iron);
-    padding: 8px 0;
-    position: sticky; top: 0; z-index: 1000;
-    display: flex; justify-content: center; gap: 25px;
-    box-shadow: 0 4px 10px #000;
-    backdrop-filter: blur(5px);
-}
-.res-item {
-    display: flex; align-items: center; gap: 8px;
-    font-family: 'Cinzel', serif; font-size: 0.85rem; color: #bbb;
-    cursor: pointer; padding: 4px 12px; border-radius: 4px; border: 1px solid transparent;
-}
-.res-item:hover { background: rgba(255, 215, 0, 0.05); border-color: rgba(255, 215, 0, 0.2); }
-.res-item:hover .res-val { color: var(--gold); text-shadow: 0 0 5px var(--gold-dim); }
-.res-icon {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: #222; border: 1px solid #555;
-    display: grid; place-items: center; font-size: 0.65rem; color: var(--gold);
-}
-.res-val { font-weight: bold; transition: color 0.2s; }
+        .nav-btn, .stat-box, .page-btn {
+            background: #000; border: 2px solid #555; border-bottom-color: #111; border-right-color: #111;
+            color: #fff; font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700;
+            padding: 4px 15px; display: flex; align-items: center; justify-content: center;
+            box-shadow: inset 0 0 10px #000; text-shadow: 1px 1px 0 #000; cursor: pointer; transition: all 0.2s;
+        }
+        .nav-btn:hover, .page-btn:hover:not(.disabled) { color: var(--gold-text); border-color: var(--gold-text); }
+        .nav-btn.active, .page-btn.active { color: var(--gold-text); border-color: var(--gold-dark); }
+        .stat-box { cursor: default; }
+        .page-btn.disabled { color: #555; cursor: not-allowed; border-color: #333; }
 
-/* =========================================
-   3. UI: WC3 PANELS (The Wood Box)
-   ========================================= */
-.wc3-panel {
-    background: linear-gradient(to bottom, rgba(30,30,30,0.95), rgba(15,15,15,0.98)), url('https://www.transparenttextures.com/patterns/wood-pattern.png');
-    border: 2px solid #222;
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 0 3px var(--border-iron), 0 5px 15px #000;
-    padding: 20px; position: relative; margin-bottom: 20px; transition: border-color 0.2s;
-}
-.wc3-panel::before, .wc3-panel::after {
-    content: ""; position: absolute; width: 6px; height: 6px;
-    background: #888; border-radius: 50%;
-    box-shadow: inset -1px -1px 2px #000, 1px 1px 2px #fff;
-    z-index: 2; pointer-events: none;
-}
-.wc3-panel::before { top: 6px; left: 6px; }
-.wc3-panel::after { top: 6px; right: 6px; }
+        .center-orb-wrapper {
+            position: absolute; left: 50%; transform: translateX(-50%); top: 5px;
+            width: 80px; height: 80px; background: var(--stone-base); border-radius: 50%; border: 4px solid #555;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.9), inset 0 0 10px #000;
+            display: flex; justify-content: center; align-items: center; z-index: 105;
+        }
+        .time-orb {
+            width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at top right, #3a5f8f, #050b14);
+            border: 2px solid #000; box-shadow: inset 0 0 10px #000, inset 0 2px 5px rgba(255,255,255,0.3);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Cinzel', serif; font-weight: bold; color: #fff; text-shadow: 0 0 5px #fff; line-height: 1.1;
+        }
 
-video {
-  width: 100%;       /* Or your specific width */
-  height: 400px;     /* Or your specific height */
-  object-fit: cover; /* Ensures the video fills the area */
-  object-position: 50% center; /* Forces the focus to the middle */
-}
+        /* =========================================
+           MAIN CONTENT & VIEWS
+           ========================================= */
+        main { flex: 1; width: 100%; max-width: 1000px; margin: 0 auto; padding: 50px 15px; }
 
-/* =========================================
-   4. LAYOUT GRID
-   ========================================= */
-.container {
-    max-width: 1100px; margin: 40px auto; padding: 0 20px;
-    display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
-    gap: 30px;
-    align-items: start; flex: 1; position: relative; z-index: 1;
-}
+        .rts-frame {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), repeating-linear-gradient(to bottom, var(--wood-light), var(--wood-base) 4px);
+            border: 6px solid var(--iron-dark); border-image: linear-gradient(to bottom right, var(--iron-light), var(--iron-dark), var(--iron-light)) 1;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0,0,0,1); padding: 30px; position: relative;
+        }
 
-/* =========================================
-   5. SIDEBAR COMPONENTS
-   ========================================= */
-.sidebar-column { display: flex; flex-direction: column; }
+        .view-section { }
+        .view-section.active { display: flex; flex-direction: column; gap: 20px; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.portrait-frame {
-    display: block; width: 100%; aspect-ratio: 1/1; background: #000;
-    border: 3px solid #333; margin-bottom: 15px; box-shadow: inset 0 0 15px #000;
-    position: relative; overflow: hidden; transition: 0.2s;
-}
-.portrait-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.2) contrast(1.1); }
-.portrait-frame:hover {
-    border-color: var(--gold); cursor: pointer;
-    box-shadow: inset 0 0 15px #000, 0 0 15px rgba(255, 215, 0, 0.2);
-}
+        /* --- POST FEED --- */
+        .feed-header { text-align: center; font-size: 2rem; margin-bottom: 20px; border-bottom: 2px solid var(--gold-dark); padding-bottom: 10px; }
+        .post-card { background: #0a0a0a; border: 3px solid #333; border-bottom-color: #111; border-right-color: #111; padding: 15px; display: flex; gap: 20px; transition: border-color 0.2s, transform 0.2s; box-shadow: inset 0 0 15px #000; }
+        .post-card:hover { border-color: var(--gold-text); transform: translateY(-2px); }
+        .post-thumb { width: 180px; height: 120px; background: #1a1a1a; border: 2px solid #000; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-family: 'Cinzel'; color: #444; }
+        .post-preview { flex: 1; display: flex; flex-direction: column; }
+        .post-preview h3 { font-size: 1.4rem; margin-bottom: 5px; cursor: pointer; color: var(--gold-text); font-family: 'Cinzel', serif; }
+        .post-preview h3:hover { text-decoration: underline; }
+        .post-meta-sm { font-family: 'Cinzel', serif; color: #888; font-size: 0.8rem; margin-bottom: 10px; }
+        .post-meta-sm span { color: var(--gold-dark); }
+        .post-preview p { font-size: 0.95rem; color: #bbb; line-height: 1.5; margin-bottom: 15px; flex-grow: 1; }
+        
+        .read-more-btn {
+            align-self: flex-start; background: linear-gradient(to bottom, #1e3a5f, #0a192f); border: 1px solid #000;
+            color: var(--gold-text); font-family: 'Cinzel', serif; font-weight: bold; padding: 5px 15px; cursor: pointer; box-shadow: inset 0 0 0 1px #4a76a8;
+        }
+        .read-more-btn:hover { background: linear-gradient(to bottom, #2a4c7a, #0f2545); color: #fff; }
+        .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 30px; }
 
-.hero-info { text-align: center; margin-bottom: 15px; }
-.hero-class { font-size: 0.7rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
+        /* --- SINGLE POST READING VIEW --- */
+        .back-btn { margin-bottom: 20px; display: inline-flex; align-items: center; gap: 5px; background: none; border: none; color: var(--gold-text); font-family: 'Cinzel', serif; font-size: 1.1rem; cursor: pointer; text-shadow: 1px 1px 0 #000; }
+        .back-btn:hover { text-decoration: underline; }
+        
+        #single-post-view header { margin-bottom: 20px; display: block; border: none; background: none; box-shadow: none; }
+        #single-post-view h1 { font-size: 2.2rem; margin-bottom: 10px; border-bottom: 2px solid var(--gold-dark); padding-bottom: 10px; }
+        .post-meta { font-family: 'Cinzel', serif; color: #888; font-size: 0.9rem; display: flex; gap: 15px; margin-bottom: 20px; }
+        .post-meta span { color: var(--gold-dark); }
+        
+        .post-content { font-size: 1.05rem; line-height: 1.7; color: #ccc; }
+        .post-content p { margin-bottom: 20px; }
+        .post-content strong { color: #fff; }
+        .post-content ul { margin-bottom: 20px; padding-left: 20px; }
+        .post-content li { margin-bottom: 8px; }
+        
+        .code-block { background: #050505; border: 1px solid #333; border-left: 4px solid var(--green-text); padding: 15px; font-family: 'Courier New', Courier, monospace; color: #4ade80; margin-bottom: 20px; overflow-x: auto; font-size: 0.95rem; box-shadow: inset 0 0 10px #000; }
 
-.skills-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: #aaa; margin-top: 5px; }
-.skills-table td { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.skill-icon { width: 20px; text-align: center; color: var(--gold); margin-right: 5px; }
-.skill-val { text-align: right; color: #fff; font-family: monospace; }
+        /* --- CONFERENCES SUBPAGE --- */
+        .big-map-container {
+            width: 100%; max-width: 800px; height: 400px; margin: 0 auto 30px auto;
+            background: #000; border: 4px solid var(--iron-light); border-bottom-color: var(--iron-dark); border-right-color: var(--iron-dark);
+            position: relative; overflow: hidden; box-shadow: inset 0 0 20px #000;
+        }
+        
+        .wc3-table { width: 100%; border-collapse: collapse; background: #0a0a0a; border: 2px solid var(--iron-light); }
+        .wc3-table th { background: #1a1a1a; color: var(--gold-text); font-family: 'Cinzel', serif; padding: 12px; border: 1px solid #333; text-align: left; }
+        .wc3-table td { padding: 12px; border: 1px solid #333; font-size: 0.95rem; color: #ccc; transition: background 0.2s; cursor: pointer; }
+        .wc3-table tr:hover td { background: rgba(255, 209, 0, 0.05); }
+        .wc3-table tr.active-row td { background: rgba(74, 222, 128, 0.1); border-color: var(--green-text); }
+        .type-badge { padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: bold; border: 1px solid #444; display: inline-block; white-space: nowrap; }
+        .type-epic { color: var(--epic-purple); border-color: var(--epic-purple); }
+        .type-normal { color: var(--green-text); border-color: var(--green-text); }
 
-.inv-header {
-    font-family:'Cinzel'; font-size:0.75rem; color:#888;
-    text-align:center; margin-bottom:10px; border-bottom: 1px solid #333; padding-bottom: 5px;
-}
-.inv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; justify-items: center; padding: 5px 0; }
-.inv-slot {
-    width: 32px; height: 32px; background: #151515; border: 1px solid #444;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; color: #555; transition: 0.2s;
-}
-.inv-slot:hover {
-    border-color: var(--gold); color: var(--gold); background: #222;
-    box-shadow: 0 0 5px rgba(255,215,0,0.2); cursor: pointer;
-}
+        /* =========================================
+           LEAFLET MAP STYLING (Radar Theme)
+           ========================================= */
+        .leaflet-container { background: #0b1a0b; font-family: 'Open Sans', sans-serif; cursor: crosshair; }
+        .leaflet-tile-pane { filter: invert(100%) hue-rotate(180deg) brightness(0.8) contrast(1.3) sepia(30%) hue-rotate(70deg); }
+        
+        /* Leaflet uses inline 3D transforms on the .custom-radar-pin wrapper. 
+          To prevent CSS scale from breaking Leaflet's positioning, we apply visual styles 
+          and transforms ONLY to the inner child div (.pin-inner).
+        */
+        .custom-radar-pin { cursor: pointer; }
+        .custom-radar-pin:hover, .custom-radar-pin.active-pin { z-index: 1000 !important; }
 
-/* =========================================
-   6. QUEST CARDS (Post List)
-   ========================================= */
-.quest-list { display: flex; flex-direction: column; gap: 20px; }
-.quest-card {
-    padding: 15px; display: flex; gap: 20px;
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; align-items: flex-start;
-}
-.quest-card:hover {
-    border-color: var(--gold); transform: translateY(-2px);
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 0 3px var(--gold), 0 5px 20px rgba(0,0,0,0.8), 0 0 10px rgba(255, 215, 0, 0.1);
-}
-.quest-thumb {
-    width: 140px; height: 140px; flex-shrink: 0; background: #000; border: 2px solid #333;
-}
-.quest-thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5); transition: 0.3s; }
-.quest-card:hover .quest-thumb img { filter: grayscale(0); }
-.quest-body { flex: 1; display: flex; flex-direction: column; }
-.quest-title {
-    font-size: 1.3rem; margin-bottom: 5px; line-height: 1.2; color: var(--gold);
-    text-shadow: 1px 1px 0 #000; font-family: 'Cinzel', serif; transition: 0.2s;
-}
-.quest-card:hover .quest-title { text-shadow: 0 0 8px var(--gold-dim); }
-.quest-meta { font-size: 0.75rem; color: #777; text-transform: uppercase; margin-bottom: 10px; font-family: 'Cinzel'; }
-.quest-excerpt { color: #ccc; font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; }
+        .pin-inner {
+            width: 100%; height: 100%; background: #ff0000; border-radius: 50%;
+            box-shadow: 0 0 8px #ff0000; animation: ping 2s infinite; 
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+        }
 
-/* =========================================
-   7. SINGLE POST CONTENT
-   ========================================= */
-.post-content { color: #ccc; line-height: 1.7; font-size: 1.05rem; }
-.post-content h1, .post-content h2 { border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px; }
-.post-content p { margin-bottom: 20px; }
-.post-content a { color: var(--gold); text-decoration: underline; }
-.post-content img { max-width: 100%; border: 2px solid #333; margin: 20px 0; }
-.post-content pre {
-    background: #000; border: 1px solid #333; padding: 15px;
-    overflow-x: auto; color: #ddd; font-family: monospace;
-}
-.post-content blockquote { border-left: 3px solid var(--gold); margin-left: 0; padding-left: 20px; color: #888; font-style: italic; }
+        .custom-radar-pin:hover .pin-inner, .custom-radar-pin.active-pin .pin-inner {
+            background: var(--green-text); box-shadow: 0 0 15px var(--green-text); 
+            transform: scale(1.5); animation: none;
+        }
 
-/* =========================================
-   8. PAGINATION & FOOTER
-   ========================================= */
-.pagination-container { display: flex; justify-content: center; align-items: center; margin-top: 10px; }
-.pagination-inner { display: flex; align-items: center; gap: 15px; padding: 8px 20px; }
-.page-btn {
-    width: 32px; height: 32px; background: #1a1a1a;
-    border: 2px solid #444; color: #888;
-    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.1s;
-}
-.page-btn:hover:not(.disabled) { border-color: var(--gold); color: var(--gold); background: #222; box-shadow: 0 0 5px rgba(255,215,0,0.2); }
-.page-counter { font-family: 'Cinzel'; font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-.page-current { color: var(--gold); font-weight: bold; font-size: 0.9rem; }
+        @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,0,0,0.7); } 70% { box-shadow: 0 0 0 10px rgba(255,0,0,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,0,0); } }
 
-.stats-footer {
-    margin-top: 40px; background: #080808; border-top: 4px solid var(--border-iron);
-    padding: 15px 0; text-align: center;
-    background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
-    position: relative; z-index: 1;
-}
-.stats-row { display: inline-flex; gap: 40px; font-family: 'Cinzel', serif; color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-.stat-item span { color: var(--gold); font-weight: bold; margin-right: 5px; font-size: 0.9rem; }
+        /* =========================================
+           RTS FOOTER
+           ========================================= */
+        footer.rts-footer {
+            width: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.95)), repeating-linear-gradient(to bottom, var(--wood-light), var(--wood-base) 4px);
+            border-top: 8px solid var(--iron-dark); border-image: linear-gradient(to right, var(--iron-light), var(--iron-dark), var(--iron-light)) 1;
+            display: flex; justify-content: center; box-shadow: 0 -10px 40px rgba(0,0,0,0.9); position: relative; z-index: 10;
+        }
 
-/* =========================================
-   9. RESPONSIVE
-   ========================================= */
-@media (max-width: 800px) {
-    .container { grid-template-columns: 1fr; }
-    .sidebar-column { order: 2; } /* Move sidebar below content on mobile if desired, or keep top */
-    .quest-card { flex-direction: column; align-items: stretch; }
-    .quest-thumb { width: 100%; height: 180px; margin-bottom: 15px; }
-    .resource-bar { flex-wrap: wrap; gap: 10px; }
-}
+        .footer-inner { width: 100%; max-width: 1250px; padding: 20px 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 12px; }
+        .no-shrink { flex-shrink: 0; }
+        .tusk-divider { width: 16px; background: linear-gradient(to right, #dcdcdc, #ffffff 30%, #a0a0a0 80%, #555); border-radius: 50% 50% 10% 10% / 100% 100% 5% 5%; box-shadow: 3px 0 5px rgba(0,0,0,0.8), inset -3px 0 5px rgba(0,0,0,0.5); border: 1px solid #000; }
 
-/* =========================================
-   CORE STYLES (Add this section)
-   ========================================= */
+        /* 1. Minimap */
+        .minimap-wrapper { 
+            width: 180px; height: 180px; background: #000; border: 4px solid var(--iron-light); border-bottom-color: var(--iron-dark); border-right-color: var(--iron-dark); 
+            position: relative; box-shadow: inset 0 0 20px #000; display: block; overflow: hidden; cursor: crosshair;
+        }
 
-* { box-sizing: border-box; }
+        /* 2. Portrait */
+        .portrait-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 156px; }
+        .portrait-frame { width: 144px; height: 144px; background: radial-gradient(circle, #444, #111); border: 4px solid #1a1a1a; box-shadow: inset 0 0 15px #000, 0 5px 10px rgba(0,0,0,0.8); margin-bottom: 8px; display: flex; justify-content: center; align-items: center; font-size: 4.2rem; }
+        .bars { width: 100%; display: flex; flex-direction: column; gap: 4px; }
+        .stat-bar { height: 16px; border: 1px solid #000; width: 100%; position: relative; background: #222; }
+        .stat-bar-fill { height: 100%; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
+        .health { background: linear-gradient(to bottom, #00ff00, #006600); width: 100%; }
+        .mana { background: linear-gradient(to bottom, #3399ff, #000099); width: 100%; }
+        .bar-text { position: absolute; width: 100%; text-align: center; top: -1px; font-size: 0.7rem; font-weight: bold; color: #fff; text-shadow: 1px 1px 0 #000; }
 
-/* GLOBAL IMAGE RESET
-   This ensures images never overflow their container
-   and maintain their aspect ratio. */
-img {
-    max-width: 100%;
-    height: auto;
-    display: block; /* Removes the tiny whitespace gap at the bottom of inline images */
-}
+        /* 3. Hero Stats */
+        .stats-wrapper { flex: 1; min-width: 200px; max-width: 280px; background: #000; border: 3px solid #333; padding: 10px; display: flex; flex-direction: column; }
+        .hero-name { text-align: center; font-family: 'Cinzel', serif; font-size: 1.3rem; color: #fff; }
+        .hero-class { text-align: center; font-size: 0.8rem; color: var(--gold-text); border: 1px solid var(--gold-dark); background: linear-gradient(to bottom, #332200, #111); padding: 2px 0; margin-bottom: 10px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.8rem; }
+        .stat-row { display: flex; align-items: center; }
+        .stat-icon { width: 24px; height: 24px; background: #222; border: 1px solid #555; margin-right: 6px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 5px #000; border-radius: 3px; font-size: 0.8rem; }
+        .stat-info { display: flex; flex-direction: column; line-height: 1.1; }
+        .stat-label { color: #aaa; font-size: 0.7rem; }
+        .stat-val { color: #fff; font-weight: bold; }
 
-/* ... rest of your CSS ... */
+        /* 4. Inventory */
+        .inventory-wrapper { width: 150px; display: flex; flex-direction: column; }
+        .inv-title { text-align: center; font-family: 'Cinzel', serif; color: var(--gold-text); margin-bottom: 5px; font-size: 0.9rem; }
+        .inv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: #111; padding: 6px; border: 2px solid #333; }
+        .inv-slot { width: 100%; aspect-ratio: 1; background: #1a1a1a; border: 2px solid #444; border-bottom-color: #111; border-right-color: #111; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; position: relative; transition: border-color 0.2s; }
+        .inv-slot:hover { border-color: var(--gold-text); }
+
+        /* 5. Upcoming Events List */
+        .events-wrapper { 
+            width: 250px; background: #000; border: 3px solid #333; padding: 6px; display: flex; flex-direction: column; gap: 6px; height: 180px; overflow-y: auto; 
+        }
+        .events-wrapper::-webkit-scrollbar { width: 6px; }
+        .events-wrapper::-webkit-scrollbar-track { background: #0a0a0a; border-left: 1px solid #222; }
+        .events-wrapper::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+        .events-wrapper::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+        .events-title { text-align: center; font-family: 'Cinzel', serif; color: var(--gold-text); font-size: 0.9rem; border-bottom: 1px solid #444; padding-bottom: 4px; margin-bottom: 2px; flex-shrink: 0; }
+        .event-item { height: 62px; flex-shrink: 0; background: #111; border: 1px solid #222; padding: 6px 8px; display: flex; flex-direction: column; justify-content: center; gap: 2px; border-left: 3px solid var(--green-text); position: relative; }
+        .event-item.epic { border-left-color: var(--epic-purple); }
+        .event-date { font-family: 'Cinzel', serif; color: var(--gold-dark); font-size: 0.7rem; }
+        .event-name { color: #e0e0e0; font-size: 0.85rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .event-desc { color: #888; font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .event-empty { text-align: center; color: #555; font-style: italic; margin-top: 20px; font-size: 0.85rem; }
+
+        /* Universal Tooltips (CSS Pure) */
+        .tooltip { 
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 220px; 
+            background: #0b1016; border: 2px solid #555; border-radius: 3px; padding: 10px; color: #e0e0e0; 
+            font-family: 'Open Sans', sans-serif; font-size: 0.85rem; box-shadow: 0 10px 25px rgba(0,0,0,0.9); 
+            visibility: hidden; opacity: 0; transition: opacity 0.15s; pointer-events: none; z-index: 2000; white-space: normal; cursor: default;
+        }
+        /* Show tooltip on hover, or when manually forced active via JS on map pins */
+        .inv-slot:hover .tooltip, .custom-radar-pin:hover .tooltip, .custom-radar-pin.active-pin .tooltip { visibility: visible; opacity: 1; }
+        
+        .tt-title { color: var(--gold-text); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 3px; }
+        .tt-desc { color: var(--gold-text); line-height: 1.3; font-size: 0.8rem; }
+        .tt-unique { color: var(--epic-purple); font-weight: bold; margin-bottom: 3px; font-size: 0.8rem; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1250px) { .tusk-divider { display: none; } }
+        @media (max-width: 900px) {
+            .header-inner { flex-direction: column; height: auto; padding: 15px; gap: 20px; }
+            .nav-region, .stats-region { max-width: 100%; justify-content: center; }
+            .center-orb-wrapper { position: relative; left: 0; transform: none; top: 0; }
+            .post-card { flex-direction: column; }
+            .post-thumb { width: 100%; height: 180px; }
+            .footer-inner { flex-direction: column; align-items: center; }
+            .stats-wrapper, .events-wrapper, .inventory-wrapper { max-width: 350px; width: 100%; }
+        }

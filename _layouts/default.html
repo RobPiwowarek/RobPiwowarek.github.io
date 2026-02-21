@@ -4,156 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
-
-<nav class="resource-bar">
-    <a href="{{ site.baseurl }}" class="res-item">
-        <div class="res-icon"><i class="fas fa-home"></i></div>
-        <div class="res-val">Home</div>
-    </a>
-    <a href="{{ site.baseurl }}/about" class="res-item">
-        <div class="res-icon"><i class="fas fa-helmet-safety"></i></div>
-        <div class="res-val">About</div>
-    </a>
-<!--    <a href="{{ site.baseurl }}/portfolio" class="res-item">-->
-<!--        <div class="res-icon"><i class="fas fa-hammer"></i></div>-->
-<!--        <div class="res-val">Projects</div>-->
-<!--    </a>-->
-<!--    <a href="{{ site.baseurl }}/cv" class="res-item">-->
-<!--        <div class="res-icon"><i class="fas fa-scroll"></i></div>-->
-<!--        <div class="res-val">CV</div>-->
-<!--    </a>-->
-</nav>
-
-<div class="container">
-
-    <aside class="sidebar-column">
-        <div class="wc3-panel">
-            <a href="{{ site.baseurl }}/about" class="portrait-frame" title="View Profile">
-                <video width="640" height="360" autoplay loop muted playsinline>
-                    <source src="{{ site.baseurl }}/assets/images/authors/rpw.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </a>
-            <div class="hero-info">
-                <h3>{{ site.author | default: "Hero Name" }}</h3>
-                <div class="hero-class">Senior Software Engineer</div>
-            </div>
-            <div class="inv-header">Attributes</div>
-            <table class="skills-table">
-                <tr><td><i class="fas fa-code skill-icon"></i> C++</td> <!-- <td class="skill-val">10</td> --></tr>
-                <tr><td><i class="fas fa-gamepad skill-icon"></i> Unreal Engine</td><!-- <td class="skill-val">8</td> --></tr>
-                <tr><td><i class="fas fa-cube skill-icon"></i> Game AI</td> <!-- <td class="skill-val">7</td> --></tr>
-                <tr><td><i class="fas fa-bug skill-icon"></i> Gameplay / Generalist Programming</td> <!-- <td class="skill-val">9</td> --> </tr>
-            </table>
+<header>
+    <div class="header-inner">
+        <div class="nav-region">
+            <nav class="nav-links">
+                <a href="{{ site.baseurl }}/" class="nav-btn {% if page.url == '/' or page.url contains '/page' %}active{% endif %}">Blog</a>
+                <a href="{{ site.baseurl }}/about" class="nav-btn {% if page.url == '/about' %}active{% endif %}">About</a>
+                <a href="{{ site.baseurl }}/conferences" class="nav-btn {% if page.url == '/conferences' %}active{% endif %}">Conferences</a>
+            </nav>
         </div>
 
-        <div class="wc3-panel">
-            <div class="inv-header">Equipment</div>
+        <div class="center-orb-wrapper">
+            <div class="time-orb">
+                <span class="time-text" style="font-size: 1.1rem; letter-spacing: 1px;">--:--</span>
+                <span style="font-size: 0.6rem; color: #8bb3e0; margin-top: -2px;">CET</span>
+            </div>
+        </div>
+
+        <div class="stats-region">
+            <div class="site-stats">
+                <div class="stat-box" title="Total Published Posts">📜 <span>{{ site.posts.size }}</span> Posts</div>
+                <div class="stat-box" title="Years of Development Experience">⏳ 8 YOE</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    {{ content }}
+</main>
+
+<footer class="rts-footer">
+    <div class="footer-inner">
+
+        <div class="minimap-wrapper no-shrink" title="Map of Operations">
+            <div id="mini-leaflet-map" style="width: 100%; height: 100%; pointer-events: none;"></div>
+            <a href="{{ site.baseurl }}/conferences" style="position: absolute; inset: 0; z-index: 1000;"></a>
+        </div>
+
+        <div class="tusk-divider"></div>
+
+        <div class="portrait-wrapper no-shrink">
+            <div class="portrait-frame">👨‍💻</div>
+            <div class="bars">
+                <div class="stat-bar health"><div class="stat-bar-fill"></div><span class="bar-text">EXP: 1665/1675</span></div>
+                <div class="stat-bar mana"><div class="stat-bar-fill"></div><span class="bar-text">NRG: 675/675</span></div>
+            </div>
+        </div>
+
+        <div class="tusk-divider"></div>
+
+        <div class="stats-wrapper">
+            <div class="hero-name">Kowalski</div>
+            <div class="hero-class">Level 8 Engineer</div>
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-row" style="margin-bottom: 6px;"><div class="stat-icon">⚙️</div><div class="stat-info"><span class="stat-label">C++</span><span class="stat-val">64-74</span></div></div>
+                    <div class="stat-row"><div class="stat-icon" style="border-radius: 50%;">🎮</div><div class="stat-info"><span class="stat-label">Unreal</span><span class="stat-val">52</span></div></div>
+                </div>
+                <div>
+                    <div class="stat-row" style="margin-bottom: 6px;"><div class="stat-icon" style="border-radius: 50%;">🛡️</div><div class="stat-info"><span class="stat-label">Backend</span><span class="stat-val">6</span></div></div>
+                    <div class="stat-row"><div class="stat-icon">🧠</div><div class="stat-info"><span class="stat-label">Java</span><span class="stat-val">34</span></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tusk-divider"></div>
+
+        <div class="inventory-wrapper no-shrink">
+            <div class="inv-title">Inventory</div>
             <div class="inv-grid">
-                <a href="https://github.com/RobPiwowarek" class="inv-slot" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/rpiwowarek/" class="inv-slot" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://x.com/robpiwowarek" class="inv-slot" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="robpiwowarek@gmail.com" class="inv-slot" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/RobPiwowarek" class="inv-slot" style="text-decoration:none;">🐙<div class="tooltip"><div class="tt-title">GitHub Repo</div><div class="tt-unique">Unique</div><div class="tt-desc">View open-source code and commits.</div></div></a>
+                <a href="https://www.linkedin.com/in/rpiwowarek/" class="inv-slot" style="text-decoration:none;">💼<div class="tooltip"><div class="tt-title">LinkedIn</div><div class="tt-desc">Increases networking range by 500+.</div></div></a>
+                <a href="https://x.com/robpiwowarek" class="inv-slot" style="text-decoration:none;">🐦<div class="tooltip"><div class="tt-title">Twitter</div><div class="tt-desc">Cast short text spells.</div></div></a>
+                <a href="mailto:robpiwowarek@gmail.com" class="inv-slot" style="text-decoration:none;">✉️<div class="tooltip"><div class="tt-title">Email</div><div class="tt-desc">Send digital courier to target.</div></div></a>
+                <div class="inv-slot empty"></div>
+                <div class="inv-slot empty"></div>
             </div>
         </div>
-    </aside>
 
-    <main class="quest-list">
-        {{ content }}
-    </main>
+        <div class="tusk-divider"></div>
 
-</div>
+        <div class="events-wrapper no-shrink">
+            <div class="events-title">Upcoming Quests</div>
+            <div id="footer-events-list" style="display: flex; flex-direction: column; gap: 6px;">
+            </div>
+        </div>
 
-<footer class="stats-footer">
-    <div class="stats-row">
-        <div class="stat-item"><span>{{ site.posts.size }}</span> Posts </div>
-<!--        <div class="stat-item"><span>Online</span> System Status</div>-->
-        <div class="stat-item" style="color: #444;">&copy; Copyright {{ "now" | date: "%Y" }} Robert Piwowarek. All rights reserved</div>
     </div>
 </footer>
 
-<script>
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, cx, cy;
-    const gridSize = 40;
-    let particles = [];
-    const gridColor = 'rgba(255, 255, 255, 0.02)';
-    const pulseColor = 'rgba(255, 215, 0, 0.25)';
-
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        cx = Math.floor((width / 2) / gridSize) * gridSize;
-        cy = Math.floor((height / 2) / gridSize) * gridSize;
-    }
-
-    class Electron {
-        constructor() { this.reset(); }
-        reset() {
-            this.x = cx; this.y = cy;
-            this.history = []; this.maxHistory = 25;
-            this.dead = false; this.speed = 5;
-            this.pickOutwardDirection();
-        }
-        pickOutwardDirection() {
-            let potentialDirs = [];
-            if (this.x <= cx) potentialDirs.push({x: -1, y: 0});
-            if (this.x >= cx) potentialDirs.push({x: 1, y: 0});
-            if (this.y <= cy) potentialDirs.push({x: 0, y: -1});
-            if (this.y >= cy) potentialDirs.push({x: 0, y: 1});
-            if (this.dir) potentialDirs = potentialDirs.filter(d => d.x !== -this.dir.x || d.y !== -this.dir.y);
-
-            if (potentialDirs.length > 0) {
-                if (this.dir && potentialDirs.some(d => d.x === this.dir.x && d.y === this.dir.y) && Math.random() > 0.3) {
-                } else { this.dir = potentialDirs[Math.floor(Math.random() * potentialDirs.length)]; }
-            } else { this.dir = {x:1, y:0}; }
-        }
-        update() {
-            this.x += this.dir.x * this.speed;
-            this.y += this.dir.y * this.speed;
-            this.history.push({x: this.x, y: this.y});
-            if (this.history.length > this.maxHistory) this.history.shift();
-            if (this.x % gridSize === 0 && this.y % gridSize === 0) this.pickOutwardDirection();
-            if (this.x < -50 || this.x > width+50 || this.y < -50 || this.y > height+50) this.dead = true;
-        }
-        draw() {
-            if (this.history.length < 2) return;
-            ctx.beginPath();
-            ctx.moveTo(this.history[0].x, this.history[0].y);
-            for (let i = 1; i < this.history.length; i++) ctx.lineTo(this.history[i].x, this.history[i].y);
-            ctx.strokeStyle = pulseColor; ctx.lineWidth = 1.5;
-            ctx.shadowBlur = 5; ctx.shadowColor = '#ffd700'; ctx.stroke(); ctx.shadowBlur = 0;
-        }
-    }
-
-    function drawGrid() {
-        ctx.strokeStyle = gridColor; ctx.lineWidth = 1; ctx.beginPath();
-        for (let x = 0; x <= width; x += gridSize) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
-        for (let y = 0; y <= height; y += gridSize) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
-        ctx.stroke();
-    }
-
-    function init() { resize(); loop(); }
-    function loop() {
-        ctx.clearRect(0, 0, width, height);
-        drawGrid();
-        for(let i = 0; i < 2; i++) particles.push(new Electron());
-        if (particles.length > 400) particles.splice(0, particles.length - 400);
-        for (let i = particles.length - 1; i >= 0; i--) {
-            let p = particles[i]; p.update(); p.draw();
-            if (p.dead) particles.splice(i, 1);
-        }
-        requestAnimationFrame(loop);
-    }
-    window.addEventListener('resize', resize);
-    init();
-</script>
+<script src="{{ site.baseurl }}/assets/js/main.js"></script>
 </body>
 </html>

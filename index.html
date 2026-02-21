@@ -1,56 +1,58 @@
 ---
 layout: default
-title: Home
+title: Knowledge Scrolls
 ---
 
-{% for post in paginator.posts %}
-<article class="wc3-panel quest-card">
-    <div class="quest-thumb">
-        {% if post.image %}
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
-        {% else %}
-        <img src="https://images.unsplash.com/photo-1614726365723-49cfae9278b7?auto=format&fit=crop&w=400&q=60" alt="Quest Icon">
-        {% endif %}
-    </div>
-    <div class="quest-body">
-        <div class="quest-title">{{ post.title }}</div>
-        <div class="quest-meta">Quest • {{ post.date | date: "%B %d, %Y" }}</div>
-        <div class="quest-excerpt">
-            {{ post.excerpt | strip_html | truncatewords: 25 }}
-        </div>
-        <a href="{{ post.url | relative_url }}" style="align-self: flex-start;">
-            <button class="res-item" style="background: #111; color: var(--gold); border: 1px solid #555;">
-                Read Log
-            </button>
-        </a>
-    </div>
-</article>
-{% endfor %}
+<section id="blog-view" class="view-section active">
+    <h2 class="feed-header">Knowledge Scrolls</h2>
 
-{% if paginator.total_pages > 1 %}
-<div class="pagination-container">
-    <div class="wc3-panel pagination-inner">
+    <div id="feed-container" style="display: flex; flex-direction: column; gap: 20px;">
+        {% for post in paginator.posts %}
+        <div class="post-card">
+            <div class="post-thumb">
+                {% if post.image %}
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="width:100%; height:100%; object-fit:cover;">
+                {% else %}
+                <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">IMG</div>
+                {% endif %}
+            </div>
+            <div class="post-preview">
+                <a href="{{ post.url | relative_url }}" style="text-decoration: none;"><h3>{{ post.title }}</h3></a>
+                <div class="post-meta-sm">{{ post.date | date: "%B %d, %Y" }} | <span>{{ post.category | default: "General" }}</span></div>
+                <p>{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+                <a href="{{ post.url | relative_url }}" style="align-self: flex-start;">
+                    <button class="read-more-btn">Read Scroll</button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination" id="pagination-container">
 
         {% if paginator.previous_page %}
-        <a href="{{ paginator.previous_page_path | relative_url }}" class="page-btn" title="Newer">
-            <i class="fas fa-chevron-left"></i>
-        </a>
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="page-btn">Prev</a>
         {% else %}
-        <div class="page-btn disabled" style="opacity:0.3"><i class="fas fa-chevron-left"></i></div>
+        <div class="page-btn disabled">Prev</div>
         {% endif %}
 
-        <div class="page-counter">
-            <span class="page-current">{{ paginator.page }}</span> / {{ paginator.total_pages }}
-        </div>
+        {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+        <div class="page-btn active">{{ page }}</div>
+        {% elsif page == 1 %}
+        <a href="{{ site.baseurl }}/" class="page-btn">{{ page }}</a>
+        {% else %}
+        <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-btn">{{ page }}</a>
+        {% endif %}
+        {% endfor %}
 
         {% if paginator.next_page %}
-        <a href="{{ paginator.next_page_path | relative_url }}" class="page-btn" title="Older">
-            <i class="fas fa-chevron-right"></i>
-        </a>
+        <a href="{{ paginator.next_page_path | relative_url }}" class="page-btn">Next</a>
         {% else %}
-        <div class="page-btn disabled" style="opacity:0.3"><i class="fas fa-chevron-right"></i></div>
+        <div class="page-btn disabled">Next</div>
         {% endif %}
 
     </div>
-</div>
-{% endif %}
+    {% endif %}
+</section>
