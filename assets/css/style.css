@@ -345,11 +345,13 @@
         }
 
         /* =========================================
-           FIX: PORTRAIT BOX STRETCHING
+           FIX: PORTRAIT & MAP ALIGNMENT
            ========================================= */
-        .portrait-wrapper {
-            align-self: center; /* Stops the box from stretching */
-            height: fit-content; /* Forces the background to shrink tightly to the content */
+        .portrait-wrapper,
+        .map-container {
+            align-self: flex-start; /* Pushes the blocks to the very top edge */
+            height: fit-content; /* Keeps the boxes from stretching out */
+            margin-top: 5px; /* Optional: gives it a tiny bit of breathing room from the top edge */
         }
 
         /* ADD THIS NEW RULE: Forces the image to behave like an RTS portrait */
