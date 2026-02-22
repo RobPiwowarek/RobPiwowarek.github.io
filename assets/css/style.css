@@ -308,13 +308,6 @@
             display: flex; justify-content: center; box-shadow: 0 -10px 40px rgba(0,0,0,0.9); position: relative; z-index: 10;
         }
 
-        /* Lock the footer to the bottom of the screen */
-        footer.rts-footer {
-            position: sticky;
-            bottom: 0;
-            z-index: 9999; /* Keeps it above the scrolling posts */
-        }
-
         /* Optional: Add a subtle shadow at the top of the footer to show depth when posts scroll behind it */
         footer.rts-footer::before {
             content: "";

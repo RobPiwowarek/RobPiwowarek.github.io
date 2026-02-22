@@ -166,3 +166,4 @@ Some of the things I learned over this jam:
 - For a game jam, prioritize simple/dumb/boilerplate-ish solutions over complex/smart code, time is of the essence
 - If you are working with your friends that you know well - you know what tasks will be good for them, try to make the best use of their capabilities
 - Double or triple check versions of software it may save you a lot of avoidable problems
+- 
