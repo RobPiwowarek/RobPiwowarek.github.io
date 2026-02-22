@@ -328,13 +328,13 @@
         }
 
         /* 2. Portrait */
-        .portrait-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 156px; border: 4px solid var(--iron-light);}
+        .portrait-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 156px; }
         /* Update your existing frame */
         .portrait-frame {
             width: 144px;
             height: 144px;
             background: radial-gradient(circle, #444, #111);
-            border: 4px solid #1a1a1a;
+            border: 4px solid var(--iron-light);
             box-shadow: inset 0 0 15px #000, 0 5px 10px rgba(0,0,0,0.8);
             margin-bottom: 8px;
             display: flex;
