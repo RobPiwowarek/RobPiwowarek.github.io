@@ -20,8 +20,8 @@ layouts_gallery:
   <img src="https://raw.githubusercontent.com/robpiwowarek/robpiwowarek.github.io/master/assets/images/projects/blob.png">
 </p>
 
-[blob](https://github.com/Grushenko/Slavic2017/tree/master) 
-{% include gallery id="layouts_gallery" caption="Gallery" %}
+[blob](https://github.com/Grushenko/Slavic2017/tree/master)
+{% include gallery.html id="layouts_gallery" caption="Gallery" %}
 
 Blob blop is a 3D single player game revolving around unlocking the entrance to the tower in the middle of the map. 
 It was developed in **Unity3D** for **Slavic Game Jam 2017**. 

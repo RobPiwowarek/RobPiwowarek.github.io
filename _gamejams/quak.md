@@ -22,7 +22,7 @@ layouts_gallery:
 
 [Quak](https://github.com/TouK/QuaK) is a 2-player (local, no internet play) shooter where each player controls their own cute blob and tries to murder the other. The game was developed in **kotlin** and **libgdx** in a team of 6 people over 2 (working) days of hackaton at TouK.
 
-{% include gallery id="layouts_gallery" caption="Gallery" %}
+{% include gallery.html id="layouts_gallery" caption="Gallery" %}
 
 ## Notable Features
 - A selection of deadly quak-ish weapons

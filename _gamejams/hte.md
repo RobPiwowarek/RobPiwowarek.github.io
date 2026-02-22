@@ -25,7 +25,7 @@ layouts_gallery:
   
 The theme of Slavic Game Jam 2019 was "growth" hence the concept of growing your tree to gain more ground for developing your defenses.   
 
-{% include gallery id="layouts_gallery" caption="Gallery" %}
+{% include gallery.html id="layouts_gallery" caption="Gallery" %}
 
 ## Notable Features
 - Grow your tree
