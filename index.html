@@ -13,12 +13,12 @@ title: Latest Posts
                 {% if post.image %}
                 <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="width:100%; height:100%; object-fit:cover;">
                 {% else %}
-                <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">IMG</div>
+                <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color: #444; font-family: 'Cinzel';">IMG</div>
                 {% endif %}
             </div>
             <div class="post-preview">
                 <a href="{{ post.url | relative_url }}" style="text-decoration: none;"><h3>{{ post.title }}</h3></a>
-                <div class="post-meta-sm">{{ post.date | date: "%B %d, %Y" }} | <span>{{ post.category | default: "General" }}</span></div>
+                <div class="post-meta-sm">{{ post.date | date: "%B %d, %Y" }} | <span>{{ post.categories | first | default: "General" }}</span></div>
                 <p>{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
                 <a href="{{ post.url | relative_url }}" style="align-self: flex-start;">
                     <button class="read-more-btn">Read Scroll</button>

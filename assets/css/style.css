@@ -323,12 +323,12 @@
 
         /* 1. Minimap */
         .minimap-wrapper { 
-            width: 180px; height: 180px; background: #000; border: 4px solid var(--iron-light); border-bottom-color: var(--iron-dark); border-right-color: var(--iron-dark); 
+            width: 180px; height: 180px; background: #000; border: 4px solid var(--iron-light);
             position: relative; box-shadow: inset 0 0 20px #000; display: block; overflow: hidden; cursor: crosshair;
         }
 
         /* 2. Portrait */
-        .portrait-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 156px; }
+        .portrait-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 156px; border: 4px solid var(--iron-light);}
         /* Update your existing frame */
         .portrait-frame {
             width: 144px;

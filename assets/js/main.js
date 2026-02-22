@@ -102,7 +102,30 @@ function updateTime() {
     if(timeText) timeText.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
 }
 
+/**
+ * Automate Years of Experience Counter
+ * Calculates full years passed since July 2017
+ */
+function updateYOE() {
+    const startDate = new Date('2017-07-01'); // Base of Operations established
+    const today = new Date();
+
+    let yoe = today.getFullYear() - startDate.getFullYear();
+    const monthDifference = today.getMonth() - startDate.getMonth();
+
+    // If the current month is before July, or it is July but the day hasn't passed yet, subtract 1
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < startDate.getDate())) {
+        yoe--;
+    }
+
+    const yoeElement = document.getElementById('yoe-counter');
+    if (yoeElement) {
+        yoeElement.innerText = yoe;
+    }
+}
+
 // Initialize Application
 setInterval(updateTime, 60000);
 updateTime();
+updateYOE();
 initMapsAndFooter();

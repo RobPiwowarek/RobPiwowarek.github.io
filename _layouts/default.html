@@ -19,6 +19,7 @@
             <nav class="nav-links">
                 <a href="{{ site.baseurl }}/" class="nav-btn {% if page.url == '/' or page.url contains '/page' %}active{% endif %}">Blog</a>
                 <a href="{{ site.baseurl }}/about" class="nav-btn {% if page.url == '/about' %}active{% endif %}">About</a>
+                <a href="{{ site.baseurl }}/game-jams" class="nav-btn {% if page.url == '/game-jams' %}active{% endif %}">Game Jams</a>
                 <a href="{{ site.baseurl }}/conferences" class="nav-btn {% if page.url == '/conferences' %}active{% endif %}">Conferences</a>
             </nav>
         </div>
@@ -33,7 +34,7 @@
         <div class="stats-region">
             <div class="site-stats">
                 <div class="stat-box" title="Total Published Posts">📜 <span>{{ site.posts.size }}</span>&nbsp;Posts</div>
-                <div class="stat-box" title="Years of Development Experience">⏳ 8 YOE</div>
+                <div class="stat-box" title="Years of Development Experience">⏳ <span id="yoe-counter">0</span>&nbsp;YOE</div>
             </div>
         </div>
     </div>
