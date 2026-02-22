@@ -344,6 +344,14 @@
             overflow: hidden; /* ADD THIS: Prevents the image from covering the inset shadows/borders */
         }
 
+        /* =========================================
+           FIX: PORTRAIT BOX STRETCHING
+           ========================================= */
+        .portrait-wrapper {
+            align-self: center; /* Stops the box from stretching */
+            height: fit-content; /* Forces the background to shrink tightly to the content */
+        }
+
         /* ADD THIS NEW RULE: Forces the image to behave like an RTS portrait */
         .portrait-frame img {
             width: 100%;

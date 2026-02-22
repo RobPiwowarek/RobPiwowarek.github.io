@@ -47,16 +47,21 @@
 <footer class="rts-footer">
     <div class="footer-inner">
 
-        <div class="minimap-wrapper no-shrink" title="Map of Operations">
-            <div id="mini-leaflet-map" style="width: 100%; height: 100%; pointer-events: none;"></div>
-            <a href="{{ site.baseurl }}/conferences" style="position: absolute; inset: 0; z-index: 1000;"></a>
+        <div class="map-container no-shrink" style="display: flex; flex-direction: column;">
+            <div class="inv-title">Conferences</div>
+
+            <div class="minimap-wrapper" title="Map of Operations">
+                <div id="mini-leaflet-map" style="width: 100%; height: 100%; pointer-events: none;"></div>
+                <a href="{{ site.baseurl }}/conferences" style="position: absolute; inset: 0; z-index: 1000;"></a>
+            </div>
         </div>
 
         <div class="tusk-divider"></div>
 
         <div class="portrait-wrapper no-shrink">
+            <div class="inv-title">Author</div>
+
             <div class="portrait-frame">
-                <!-- <img src="{{ site.baseurl }}/assets/images/authors/rpw-avatar.jpg" alt="Author Portrait"> -->
                 <video autoplay loop muted playsinline>
                     <source src="{{ site.baseurl }}/assets/images/authors/rpw.mp4" type="video/mp4">
                 </video>
