@@ -3,11 +3,11 @@
  * Used by both the footer (Upcoming Quests) and the /conferences page
  */
 const conferencesData = [
-    { id: "c1", type: "epic", date: "2026-11-15", displayDate: "Nov 15, 2026", title: "C++ Summit Europe", city: "Warsaw", lat: 52.2297, lng: 21.0122, desc: "Speaking on memory pooling in real-time engines." },
-    { id: "c2", type: "normal", date: "2027-01-10", displayDate: "Jan 10, 2027", title: "Backend Days", city: "Wrocław", lat: 51.1079, lng: 17.0385, desc: "Workshop: Building resilient data pipelines." },
-    { id: "c3", type: "normal", date: "2026-03-05", displayDate: "Mar 05, 2026", title: "Local Dev Group", city: "Grodzisk Maz", lat: 52.1054, lng: 20.6279, desc: "Architecture Talk at Base of Operations." },
-    { id: "c4", type: "normal", date: "2025-12-02", displayDate: "Dec 02, 2025", title: "Warsaw Game Dev", city: "Kraków", lat: 50.0647, lng: 19.9450, desc: "Panel: The Future of AI in Strategy Games." },
-    { id: "c5", type: "epic", date: "2025-04-20", displayDate: "Apr 20, 2025", title: "Code Europe", city: "Gdańsk", lat: 54.3520, lng: 18.6466, desc: "Keynote: Taming the Chaos of Distributed Systems." }
+//    { id: "c1", type: "epic", date: "2026-11-15", displayDate: "Nov 15, 2026", title: "C++ Summit Europe", city: "Warsaw", lat: 52.2297, lng: 21.0122, desc: "Speaking on memory pooling in real-time engines." },
+//    { id: "c2", type: "normal", date: "2027-01-10", displayDate: "Jan 10, 2027", title: "Backend Days", city: "Wrocław", lat: 51.1079, lng: 17.0385, desc: "Workshop: Building resilient data pipelines." },
+//    { id: "c3", type: "normal", date: "2026-03-05", displayDate: "Mar 05, 2026", title: "Local Dev Group", city: "Grodzisk Maz", lat: 52.1054, lng: 20.6279, desc: "Architecture Talk at Base of Operations." },
+//    { id: "c4", type: "normal", date: "2025-12-02", displayDate: "Dec 02, 2025", title: "Warsaw Game Dev", city: "Kraków", lat: 50.0647, lng: 19.9450, desc: "Panel: The Future of AI in Strategy Games." },
+//    { id: "c5", type: "epic", date: "2025-04-20", displayDate: "Apr 20, 2025", title: "Code Europe", city: "Gdańsk", lat: 54.3520, lng: 18.6466, desc: "Keynote: Taming the Chaos of Distributed Systems." }
 ];
 
 let bigMap, miniMap;
