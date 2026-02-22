@@ -12,7 +12,7 @@ baseurl: ""
 url: "https://robpiwowarek.github.io"
 
 # Pagination Settings
-paginate: 2
+paginate: 3
 paginate_path: "/page/:num/"
 
 # Add this section to enable the plugin
