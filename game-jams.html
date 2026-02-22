@@ -1,0 +1,26 @@
+---
+layout: default
+title: Game Jams & Hackathons
+---
+<section id="projects-view" class="view-section active">
+    <h2 class="feed-header">Campaign Archives: Game Jams</h2>
+
+    <div class="project-grid">
+        {% for project in site.gamejams %}
+        <div class="wc3-panel project-card">
+            <div class="project-thumb">
+                {% if project.image %}
+                <img src="{{ project.image | relative_url }}" alt="{{ project.title }}">
+                {% else %}
+                <div class="placeholder-img">NO INTEL</div>
+                {% endif %}
+            </div>
+            <div class="project-info">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.excerpt | strip_html | truncatewords: 20 }}</p>
+                <a href="{{ project.url | relative_url }}" class="read-more-btn" style="text-decoration: none; text-align: center;">Enter Campaign</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>

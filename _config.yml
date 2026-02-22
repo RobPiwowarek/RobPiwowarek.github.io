@@ -15,6 +15,11 @@ url: "https://robpiwowarek.github.io"
 paginate: 3
 paginate_path: "/page/:num/"
 
+# Custom Collections
+collections:
+  gamejams:
+    output: true
+
 # Add this section to enable the plugin
 plugins:
   - jekyll-paginate

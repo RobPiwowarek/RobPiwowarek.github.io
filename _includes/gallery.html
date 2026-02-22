@@ -1,0 +1,11 @@
+<div class="rts-gallery" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px 0; padding: 15px; background: #050505; border: 1px solid #333; box-shadow: inset 0 0 10px #000;">
+    {% assign gallery = page[include.id] %}
+    {% for img in gallery %}
+    <a href="{{ img.url | relative_url }}" target="_blank" style="flex: 1 1 200px; max-width: 300px;">
+        <img src="{{ img.image_path | relative_url }}" alt="{{ img.alt }}" style="width: 100%; height: auto; border: 2px solid var(--iron-light); transition: 0.2s border-color;">
+    </a>
+    {% endfor %}
+    {% if include.caption %}
+    <div style="width: 100%; text-align: center; font-family: 'Cinzel'; color: var(--gold-text); margin-top: 10px; font-size: 0.9rem;">{{ include.caption }}</div>
+    {% endif %}
+</div>

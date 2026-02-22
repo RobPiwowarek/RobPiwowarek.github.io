@@ -382,6 +382,7 @@
         .hero-name { text-align: center; font-family: 'Cinzel', serif; font-size: 1.3rem; color: #fff; }
         .hero-class { text-align: center; font-size: 0.8rem; color: var(--gold-text); border: 1px solid var(--gold-dark); background: linear-gradient(to bottom, #332200, #111); padding: 2px 0; margin-bottom: 10px; }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.8rem; }
+
         /* =========================================
            FIX: EVEN STAT ROW SPACING
            ========================================= */
@@ -443,4 +444,84 @@
             .post-thumb { width: 100%; height: 180px; }
             .footer-inner { flex-direction: column; align-items: center; }
             .stats-wrapper, .events-wrapper, .inventory-wrapper { max-width: 350px; width: 100%; }
+        }
+
+        /* =========================================
+           PROJECT GALLERY (Game Jams)
+           ========================================= */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-text);
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 0 3px var(--gold-dark), 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        .project-thumb {
+            width: 100%;
+            height: 180px;
+            background: #000;
+            border: 2px solid var(--iron-light);
+            border-bottom-color: var(--iron-dark);
+            border-right-color: var(--iron-dark);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.3s;
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        .project-card:hover .project-thumb img {
+            filter: brightness(1) contrast(1.1);
+        }
+
+        .project-thumb .placeholder-img {
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Cinzel', serif; color: #555; font-size: 1.2rem;
+        }
+
+        .project-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        /* Make YouTube iframes responsive inside posts */
+        .post-content iframe {
+            max-width: 100%;
+            border: 3px solid var(--iron-light);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.9);
+            margin: 20px auto;
+            display: block;
         }
