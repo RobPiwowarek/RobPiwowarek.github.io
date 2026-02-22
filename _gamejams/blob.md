@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: project
 title: "Blob blop - SGJ2017"
 permalink: /projects/blob
 categories: [Game Jam]

@@ -525,3 +525,47 @@
             margin: 20px auto;
             display: block;
         }
+
+        /* =========================================
+           FIX: MARKDOWN TABLES & ICONS
+           ========================================= */
+        /* Style the main table to match the RTS aesthetic */
+        .post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #0a0a0a;
+            border: 2px solid var(--iron-light);
+            margin: 25px 0;
+            box-shadow: inset 0 0 15px #000, 0 5px 15px rgba(0,0,0,0.8);
+        }
+
+        .post-content th {
+            background: #1a1a1a;
+            color: var(--gold-text);
+            font-family: 'Cinzel', serif;
+            padding: 12px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+
+        .post-content td {
+            padding: 12px;
+            border: 1px solid #333;
+            font-size: 0.95rem;
+            color: #ccc;
+            vertical-align: middle;
+        }
+
+        .post-content tr:hover td {
+            background: rgba(255, 209, 0, 0.05); /* Subtle highlight on hover */
+        }
+
+        /* Force images INSIDE tables (The HTE Pears) to be small icons */
+        .post-content td img {
+            max-width: 50px !important; /* Forces the 50x50 resize */
+            height: auto;
+            margin: 0;
+            display: inline-block;
+            border: 2px solid #333; /* Gives them a neat little border */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.8); /* Replaces the massive image shadow with a tiny one */
+        }

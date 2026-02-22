@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: project
 title: "Happy Tree Enemies - SGJ2019"
 permalink: /projects/hte
 categories: [Game Jam]

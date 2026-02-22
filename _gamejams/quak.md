@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: project
 title: "Quak"
 permalink: /projects/quak
 categories: [Game Jam]
