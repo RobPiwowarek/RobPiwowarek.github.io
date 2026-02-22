@@ -345,22 +345,21 @@
             /* filter: contrast(1.1) sepia(0.2); */
         }
 
-        .portrait-frame video {
-            width: 100%;
-            height: 100%;
-            /* 'contain' ensures the whole video is visible, leaving black bars top/bottom */
-            object-fit: contain;
+       .portrait-frame video {
+           width: 100%;
+           height: 100%;
 
-            /* Now we zoom it back in manually.
-               1.0 is default size. 1.3 zooms it 30%.
-               Tweak this number until your face is the right size! */
-            transform: scale(1.3);
+           /* Forces the height to fill the box, cleanly cropping the left/right sides */
+           object-fit: cover;
 
-            /* You can still pan it up or down if needed */
-            object-position: center 20%;
+           /* 50% centers it horizontally. The 20% pans the camera slightly up so it focuses on your face, not your chest. Adjust the 20% up or down if needed! */
+           object-position: 50% 20%;
 
-            display: block;
-        }
+           /* Nuke any leftover zoom hacks */
+           transform: none !important;
+
+           display: block;
+       }
 
         .bars { width: 100%; display: flex; flex-direction: column; gap: 4px; }
         .stat-bar { height: 16px; border: 1px solid #000; width: 100%; position: relative; background: #222; }
