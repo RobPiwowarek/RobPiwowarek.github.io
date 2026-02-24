@@ -4,7 +4,7 @@
  */
 const conferencesData = [
     { id: "c3", type: "conference", date: "2024-06-25", displayDate: "Summer 2024", title: "Sumo Digital Conference 2024", city: "Sheffield", lat: 53.38116797372368, lng: -1.4697846912476509, desc: "Talk about importance of logging and diagnosing issues in unreal based on experiences from multiple projects", lang: "EN", video: "[Private] No recording :(" },
-    { id: "c2", type: "conference", date: "2023-04-20", displayDate: "Apr 20, 2023", title: "GeeCon 2023", city: "Cracow", lat: 50.08910790027821, lng: 19.984504154240273, desc: "What is Animation Engineering?", lang: "EN", video: "https://youtu.be/RwzZWc2ug0g?si=1S7ogOX41Nunnv4b},
+    { id: "c2", type: "conference", date: "2023-04-20", displayDate: "Apr 20, 2023", title: "GeeCon 2023", city: "Cracow", lat: 50.08910790027821, lng: 19.984504154240273, desc: "What is Animation Engineering?", lang: "EN", video: "https://youtu.be/RwzZWc2ug0g?si=1S7ogOX41Nunnv4b"},
     { id: "c1", type: "conference", date: "2022-05-12", displayDate: "May 12, 2022", title: "GeeCon 2022", city: "Cracow", lat: 50.08910790027821, lng: 19.984504154240273, desc: "Gamedev through the eyes of a backend engineer", lang: "EN", video: "https://youtu.be/ZdfqLmfIlPs" },
     { id: "c0", type: "conference", date: "2022-06-25", displayDate: "Jun 25, 2022", title: "Confitura", city: "Warsaw", lat: 52.225118613276074, lng: 20.96213981772683, desc: "GameDev okiem Backendowca", lang: "PL", video: "https://youtu.be/w5G6RqsFdgA?si=MX2znuZGwFGafjKf" },
 //    { id: "c4", type: "normal", date: "2025-12-02", displayDate: "Dec 02, 2025", title: "Warsaw Game Dev", city: "Kraków", lat: 50.0647, lng: 19.9450, desc: "Panel: The Future of AI in Strategy Games." },
