@@ -72,21 +72,28 @@ function initMapsAndFooter() {
 
             const typeBadge = conf.type === 'epic' ? `<span class="type-badge type-epic">Epic</span>` : `<span class="type-badge type-normal">Quest</span>`;
 
-            // Check if video exists to render an RTS-styled button, otherwise show "Locked"
-            const videoButton = conf.video
-                ? `<a href="${conf.video}" target="_blank" class="read-more-btn" style="padding: 4px 10px; font-size: 0.75rem; text-decoration: none; display: inline-block;">▶ Watch</a>`
-                : `<span style="color: #555; font-style: italic; font-size: 0.8rem;">Locked</span>`;
+           // Check if video exists AND starts with "http" to ensure it's an actual link
+           let videoButton = `<span style="color: #555; font-style: italic; font-size: 0.8rem;">Locked</span>`;
 
-            tableBody.innerHTML += `
-                <tr id="row-${conf.id}" onclick="focusMapMarker('${conf.id}', ${conf.lat}, ${conf.lng})">
-                    <td style="white-space: nowrap;">${conf.displayDate}</td>
-                    <td style="text-align: center; font-weight: bold; color: #888;">${conf.lang || 'EN'}</td>
-                    <td>${typeBadge}</td>
-                    <td style="font-family: monospace; color: #888;">[${conf.lat.toFixed(2)}, ${conf.lng.toFixed(2)}]</td>
-                    <td style="color: var(--gold-text); font-weight: bold;">${conf.city}</td>
-                    <td><strong>${conf.title}</strong><br><span style="color:#888; font-size:0.8rem;">${conf.desc}</span></td>
-                    <td style="text-align: center;">${videoButton}</td>
-                </tr>`;
+           if (conf.video && conf.video.startsWith("http")) {
+               // We add onclick="event.stopPropagation();" so clicking the button doesn't also click the row
+               videoButton = `<a href="${conf.video}" target="_blank" onclick="event.stopPropagation();" class="read-more-btn" style="padding: 4px 10px; font-size: 0.75rem; text-decoration: none; display: inline-block;">▶ Watch</a>`;
+           } else if (conf.video) {
+               // If there is text but no link (like your private Sumo recording), just show the text!
+               videoButton = `<span style="color: #555; font-style: italic; font-size: 0.75rem;">${conf.video}</span>`;
+           }
+
+           // Ensure this matches the exact order of the <th> headers in conferences.html
+           tableBody.innerHTML += `
+               <tr id="row-${conf.id}" onclick="focusMapMarker('${conf.id}', ${conf.lat}, ${conf.lng})">
+                   <td style="white-space: nowrap;">${conf.displayDate}</td>
+                   <td>${typeBadge}</td>
+                   <td style="text-align: center; font-weight: bold; color: #888;">${conf.lang || 'EN'}</td>
+                   <td style="color: var(--gold-text); font-weight: bold;">${conf.city}</td>
+                   <td style="font-family: monospace; color: #888; white-space: nowrap;">[${conf.lat.toFixed(2)}, ${conf.lng.toFixed(2)}]</td>
+                   <td><strong>${conf.title}</strong><br><span style="color:#888; font-size:0.8rem;">${conf.desc}</span></td>
+                   <td style="text-align: center;">${videoButton}</td>
+               </tr>`;
         }
     });
 }
