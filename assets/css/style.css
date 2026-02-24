@@ -485,14 +485,41 @@
                 -webkit-overflow-scrolling: touch; /* Smooth swiping on iOS */
             }
 
-            /* 4. Footer Dashboard Reorganization */
-            .footer-inner {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: flex-start;
-                padding: 15px 5px;
-            }
+            /* 4. Footer Dashboard Reorganization (Uniform Action Cards) */
+                .footer-inner {
+                    flex-direction: column; /* Stack everything in a single, neat column */
+                    align-items: stretch; /* Force all child elements to stretch full-width */
+                    padding: 15px;
+                    gap: 25px; /* Adds clean breathing room between the panels */
+                }
+
+                /* Force ALL dashboard modules to be perfectly uniform in width */
+                .portrait-wrapper,
+                .stats-wrapper,
+                .events-wrapper,
+                .inventory-wrapper,
+                .map-container {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    align-self: stretch;
+                    margin: 0;
+                }
+
+                /* Portrait adjustments: Make it larger and perfectly centered */
+                .portrait-wrapper { align-items: center; }
+                .portrait-frame { width: 180px; height: 180px; margin-bottom: 12px; }
+                .bars { width: 100%; max-width: 300px; } /* Caps the health/mana bars so they don't look awkwardly long */
+
+                /* Minimap adjustments: Stretch into a panoramic radar */
+                .minimap-wrapper { width: 100% !important; height: 200px !important; }
+
+                /* Inventory adjustments: Mutate from a 2x2 grid to a horizontal 4-slot action bar */
+                .inv-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 8px;
+                    padding: 10px;
+                }
+                .inv-slot { width: 100%; aspect-ratio: 1; }
 
             /* Shrink the portrait slightly so it can sit side-by-side with Hero Stats */
             .portrait-wrapper { width: 120px; align-self: flex-start; }
