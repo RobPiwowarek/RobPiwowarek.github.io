@@ -460,14 +460,52 @@
 
         /* Mobile Adjustments */
         @media (max-width: 1250px) { .tusk-divider { display: none; } }
+        /* =========================================
+           MOBILE COMMAND CENTER (Upgraded Responsive UI)
+           ========================================= */
+        @media (max-width: 1250px) {
+            .tusk-divider { display: none; }
+        }
+
         @media (max-width: 900px) {
-            .header-inner { flex-direction: column; height: auto; padding: 15px; gap: 20px; }
-            .nav-region, .stats-region { max-width: 100%; justify-content: center; }
-            .center-orb-wrapper { position: relative; left: 0; transform: none; top: 0; }
+            /* 1. Header Cleanup: Tightly pack buttons & hide the massive orb */
+            .header-inner { flex-direction: column; height: auto; padding: 10px; gap: 10px; }
+            .nav-region, .stats-region { max-width: 100%; justify-content: center; width: 100%; }
+            .nav-links, .site-stats { justify-content: center; }
+            .center-orb-wrapper { display: none; } /* Hiding this saves massive vertical space on phones */
+
+            /* 2. Main Feed Adjustments */
             .post-card { flex-direction: column; }
             .post-thumb { width: 100%; height: 180px; }
-            .footer-inner { flex-direction: column; align-items: center; }
-            .stats-wrapper, .events-wrapper, .inventory-wrapper { max-width: 350px; width: 100%; }
+
+            /* 3. Fix Table Overflows (Allows users to swipe left/right on the Conferences table) */
+            .wc3-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch; /* Smooth swiping on iOS */
+            }
+
+            /* 4. Footer Dashboard Reorganization */
+            .footer-inner {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 15px 5px;
+            }
+
+            /* Shrink the portrait slightly so it can sit side-by-side with Hero Stats */
+            .portrait-wrapper { width: 120px; align-self: flex-start; }
+            .portrait-frame { width: 110px; height: 110px; font-size: 3rem; }
+
+            /* Allow Hero Stats to fill the remaining row space next to the portrait */
+            .stats-wrapper { flex: 1 1 200px; max-width: 100%; }
+
+            /* Allow Inventory, Events, and Minimap to drop to the next rows cleanly */
+            .events-wrapper { width: 100%; max-width: 100%; height: auto; max-height: 200px; }
+            .inventory-wrapper { width: 100%; max-width: 250px; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px;}
+            .inv-title { width: 100%; }
+            .minimap-wrapper { width: 100%; max-width: 250px; margin: 0 auto; }
         }
 
         /* =========================================
