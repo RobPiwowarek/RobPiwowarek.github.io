@@ -70,7 +70,14 @@ function initMapsAndFooter() {
             const marker = L.marker([conf.lat, conf.lng], { icon: radarIcon }).addTo(bigMap);
             bigMapMarkers[conf.id] = marker;
 
-            const typeBadge = conf.type === 'epic' ? `<span class="type-badge type-epic">Epic</span>` : `<span class="type-badge type-normal">Quest</span>`;
+           // Check if it's 'epic' to give it the purple color, otherwise use the green 'normal' color
+           const badgeClass = conf.type === 'epic' ? 'type-epic' : 'type-normal';
+
+           // Dynamically grab whatever you typed in the data array and capitalize the first letter
+           const displayType = conf.type.charAt(0).toUpperCase() + conf.type.slice(1);
+
+           // Build the badge
+           const typeBadge = `<span class="type-badge ${badgeClass}">${displayType}</span>`;
 
            // Check if video exists AND starts with "http" to ensure it's an actual link
            let videoButton = `<span style="color: #555; font-style: italic; font-size: 0.8rem;">Locked</span>`;
