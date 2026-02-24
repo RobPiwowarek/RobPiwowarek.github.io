@@ -50,59 +50,93 @@ function initMapsAndFooter() {
     }
 
     // 4. Plot Points on Maps and build Table (if on conferences page)
-    conferencesData.forEach(conf => {
-        const iconHtml = `
-            <div class="pin-inner"></div>
-            <div class="tooltip">
-                <div class="tt-title">${conf.city}</div>
-                ${conf.type === 'epic' ? '<div class="tt-unique">Main Stage</div>' : ''}
-                <div class="tt-subtitle">${conf.displayDate}</div>
-                <div class="tt-desc">${conf.title}</div>
-            </div>
-        `;
-        const radarIcon = L.divIcon({ className: 'custom-radar-pin', html: iconHtml, iconSize: [12, 12], iconAnchor: [6, 6] });
+    // 4. Populate the Table First (No Map Pins yet)
+        if (tableBody) {
+            conferencesData.forEach(conf => {
+                const badgeClass = conf.type === 'epic' ? 'type-epic' : 'type-normal';
+                const displayType = conf.type.charAt(0).toUpperCase() + conf.type.slice(1);
+                const typeBadge = `<span class="type-badge ${badgeClass}">${displayType}</span>`;
 
-        // Add to Minimap
-        L.marker([conf.lat, conf.lng], { icon: radarIcon }).addTo(miniMap);
+                let videoButton = `<span style="color: #555; font-style: italic; font-size: 0.8rem;">Locked</span>`;
+                if (conf.video && conf.video.startsWith("http")) {
+                    videoButton = `<a href="${conf.video}" target="_blank" onclick="event.stopPropagation();" class="read-more-btn" style="padding: 4px 10px; font-size: 0.75rem; text-decoration: none; display: inline-block;">▶ Watch</a>`;
+                } else if (conf.video) {
+                    videoButton = `<span style="color: #555; font-style: italic; font-size: 0.75rem;">${conf.video}</span>`;
+                }
 
-        // If on Conferences page, build big map and table
-        if (bigMapElement && tableBody) {
-            const marker = L.marker([conf.lat, conf.lng], { icon: radarIcon }).addTo(bigMap);
-            bigMapMarkers[conf.id] = marker;
-
-           // Check if it's 'epic' to give it the purple color, otherwise use the green 'normal' color
-           const badgeClass = conf.type === 'epic' ? 'type-epic' : 'type-normal';
-
-           // Dynamically grab whatever you typed in the data array and capitalize the first letter
-           const displayType = conf.type.charAt(0).toUpperCase() + conf.type.slice(1);
-
-           // Build the badge
-           const typeBadge = `<span class="type-badge ${badgeClass}">${displayType}</span>`;
-
-           // Check if video exists AND starts with "http" to ensure it's an actual link
-           let videoButton = `<span style="color: #555; font-style: italic; font-size: 0.8rem;">Locked</span>`;
-
-           if (conf.video && conf.video.startsWith("http")) {
-               // We add onclick="event.stopPropagation();" so clicking the button doesn't also click the row
-               videoButton = `<a href="${conf.video}" target="_blank" onclick="event.stopPropagation();" class="read-more-btn" style="padding: 4px 10px; font-size: 0.75rem; text-decoration: none; display: inline-block;">▶ Watch</a>`;
-           } else if (conf.video) {
-               // If there is text but no link (like your private Sumo recording), just show the text!
-               videoButton = `<span style="color: #555; font-style: italic; font-size: 0.75rem;">${conf.video}</span>`;
-           }
-
-           // Ensure this matches the exact order of the <th> headers in conferences.html
-           tableBody.innerHTML += `
-               <tr id="row-${conf.id}" onclick="focusMapMarker('${conf.id}', ${conf.lat}, ${conf.lng})">
-                   <td style="white-space: nowrap;">${conf.displayDate}</td>
-                   <td>${typeBadge}</td>
-                   <td style="text-align: center; font-weight: bold; color: #888;">${conf.lang || 'EN'}</td>
-                   <td style="color: var(--gold-text); font-weight: bold;">${conf.city}</td>
-                   <td style="font-family: monospace; color: #888; white-space: nowrap;">[${conf.lat.toFixed(2)}, ${conf.lng.toFixed(2)}]</td>
-                   <td><strong>${conf.title}</strong><br><span style="color:#888; font-size:0.8rem;">${conf.desc}</span></td>
-                   <td style="text-align: center;">${videoButton}</td>
-               </tr>`;
+                tableBody.innerHTML += `
+                    <tr id="row-${conf.id}" onclick="focusMapMarker('${conf.id}', ${conf.lat}, ${conf.lng})">
+                        <td style="white-space: nowrap;">${conf.displayDate}</td>
+                        <td>${typeBadge}</td>
+                        <td style="text-align: center; font-weight: bold; color: #888;">${conf.lang || 'EN'}</td>
+                        <td style="color: var(--gold-text); font-weight: bold;">${conf.city}</td>
+                        <td style="font-family: monospace; color: #888; white-space: nowrap;">[${conf.lat.toFixed(2)}, ${conf.lng.toFixed(2)}]</td>
+                        <td><strong>${conf.title}</strong><br><span style="color:#888; font-size:0.8rem;">${conf.desc}</span></td>
+                        <td style="text-align: center;">${videoButton}</td>
+                    </tr>`;
+            });
         }
-    });
+
+        // 5. Aggregate Map Data by Coordinates
+        const locationGroups = {};
+        conferencesData.forEach(conf => {
+            // We round to 4 decimals (roughly 10 meters) to group overlapping pins
+            const key = `${conf.lat.toFixed(4)},${conf.lng.toFixed(4)}`;
+            if (!locationGroups[key]) {
+                locationGroups[key] = { lat: conf.lat, lng: conf.lng, events: [] };
+            }
+            locationGroups[key].events.push(conf);
+        });
+
+        // 6. Plot the Aggregated Clusters on Maps
+        Object.values(locationGroups).forEach(group => {
+            let tooltipContent = '';
+
+            // Loop through all events at this exact location and stack them in the popup
+            group.events.forEach((conf, index) => {
+                const hasVideo = conf.video && conf.video.startsWith("http");
+                // The clickable video link for the tooltip
+                const videoLink = hasVideo ? `<a href="${conf.video}" target="_blank" style="color: var(--green-text); text-decoration: underline; font-size: 0.8rem; display: inline-block; margin-top: 4px;">▶ Watch Recording</a>` : '';
+
+                // Add a separator line if this isn't the first event in the list
+                const divider = index > 0 ? 'border-top: 1px solid #444; margin-top: 10px; padding-top: 10px;' : '';
+
+                tooltipContent += `
+                    <div style="${divider}">
+                        <div class="tt-title" style="margin-bottom: 4px;">${conf.title}</div>
+                        <div style="color: #ccc; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; line-height: 1.2;">${conf.desc}</div>
+                        <div style="color: #888; font-size: 0.75rem; margin-bottom: 2px;">📅 ${conf.displayDate} &nbsp;|&nbsp; 📍 ${conf.city}</div>
+                        ${videoLink}
+                    </div>
+                `;
+            });
+
+            // If there are multiple events, make the pin glow purple and show a number badge
+            const isCluster = group.events.length > 1;
+            const pinStyle = isCluster ? 'background: var(--epic-purple); box-shadow: 0 0 10px var(--epic-purple);' : '';
+            const badgeHTML = isCluster ? `<div style="position: absolute; top: -8px; right: -8px; background: #000; color: #fff; border: 1px solid #555; font-size: 0.65rem; font-weight: bold; border-radius: 50%; width: 15px; height: 15px; display: flex; justify-content: center; align-items: center; z-index: 10;">${group.events.length}</div>` : '';
+
+            const iconHtml = `
+                <div class="pin-inner" style="${pinStyle}"></div>
+                ${badgeHTML}
+                <div class="tooltip">
+                    ${tooltipContent}
+                </div>
+            `;
+
+            const radarIcon = L.divIcon({ className: 'custom-radar-pin', html: iconHtml, iconSize: [12, 12], iconAnchor: [6, 6] });
+
+            // Plot to Minimap
+            L.marker([group.lat, group.lng], { icon: radarIcon }).addTo(miniMap);
+
+            // Plot to Big Map and bind all child IDs to this single marker
+            if (bigMapElement) {
+                const marker = L.marker([group.lat, group.lng], { icon: radarIcon }).addTo(bigMap);
+                group.events.forEach(conf => {
+                    bigMapMarkers[conf.id] = marker; // Now clicking ANY Cracow row activates this combined pin
+                });
+            }
+        });
 }
 
 function focusMapMarker(id, lat, lng) {

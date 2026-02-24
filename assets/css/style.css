@@ -444,16 +444,25 @@
         .event-desc { color: #888; font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .event-empty { text-align: center; color: #555; font-style: italic; margin-top: 20px; font-size: 0.85rem; }
 
-        /* Universal Tooltips (CSS Pure) */
-        .tooltip { 
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 220px; 
-            background: #0b1016; border: 2px solid #555; border-radius: 3px; padding: 10px; color: #e0e0e0; 
-            font-family: 'Open Sans', sans-serif; font-size: 0.85rem; box-shadow: 0 10px 25px rgba(0,0,0,0.9); 
-            visibility: hidden; opacity: 0; transition: opacity 0.15s; pointer-events: none; z-index: 2000; white-space: normal; cursor: default;
-        }
-        /* Show tooltip on hover, or when manually forced active via JS on map pins */
-        .inv-slot:hover .tooltip, .custom-radar-pin:hover .tooltip, .custom-radar-pin.active-pin .tooltip { visibility: visible; opacity: 1; }
-        
+       /* Universal Tooltips (CSS Pure) */
+       .tooltip {
+           position: absolute;
+           bottom: 12px; /* Lowered slightly to prevent hover-loss gaps */
+           left: 50%; transform: translateX(-50%); width: 260px; /* Made slightly wider */
+           background: #0b1016; border: 2px solid #555; border-radius: 3px; padding: 10px; color: #e0e0e0;
+           font-family: 'Open Sans', sans-serif; font-size: 0.85rem; box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+           visibility: hidden; opacity: 0; transition: opacity 0.15s;
+           pointer-events: none; /* Ignore clicks when hidden */
+           z-index: 2000; white-space: normal; cursor: default;
+       }
+
+       /* THE FIX: Allow clicks when visible */
+       .inv-slot:hover .tooltip, .custom-radar-pin:hover .tooltip, .custom-radar-pin.active-pin .tooltip {
+           visibility: visible;
+           opacity: 1;
+           pointer-events: auto; /* Activates links inside the tooltip */
+       }
+
         .tt-title { color: var(--gold-text); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 3px; }
         .tt-desc { color: var(--gold-text); line-height: 1.3; font-size: 0.8rem; }
         .tt-unique { color: var(--epic-purple); font-weight: bold; margin-bottom: 3px; font-size: 0.8rem; }
