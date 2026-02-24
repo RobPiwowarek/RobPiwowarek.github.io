@@ -229,6 +229,20 @@
            font-size: 0.95rem;
        }
 
+       /* =========================================
+          FIX: CODE BLOCK PADDING
+          ========================================= */
+       /* Adds breathing room between the gold border and the text */
+       .post-content .highlight pre {
+           padding: 15px 20px !important;
+           margin: 0 !important;
+       }
+
+       /* If you have line-number tables, ensure the code cell specifically has padding */
+       .post-content .highlight td.rouge-code pre {
+           padding: 0 !important; /* Resets so it doesn't double-pad inside the table */
+       }
+
        /* 4. Style the line numbers specifically so they don't blind you */
        .post-content .highlight td.gl,
        .post-content .highlight td.rouge-gutter,

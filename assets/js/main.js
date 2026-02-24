@@ -3,9 +3,10 @@
  * Used by both the footer (Upcoming Quests) and the /conferences page
  */
 const conferencesData = [
-//    { id: "c1", type: "epic", date: "2026-11-15", displayDate: "Nov 15, 2026", title: "C++ Summit Europe", city: "Warsaw", lat: 52.2297, lng: 21.0122, desc: "Speaking on memory pooling in real-time engines." },
-//    { id: "c2", type: "normal", date: "2027-01-10", displayDate: "Jan 10, 2027", title: "Backend Days", city: "Wrocław", lat: 51.1079, lng: 17.0385, desc: "Workshop: Building resilient data pipelines." },
-//    { id: "c3", type: "normal", date: "2026-03-05", displayDate: "Mar 05, 2026", title: "Local Dev Group", city: "Grodzisk Maz", lat: 52.1054, lng: 20.6279, desc: "Architecture Talk at Base of Operations." },
+    { id: "c3", type: "conference", date: "2024-06-25", displayDate: "Summer 2024", title: "Sumo Digital Conference 2024", city: "Sheffield", lat: 53.38116797372368, lng: -1.4697846912476509, desc: "Talk about importance of logging and diagnosing issues in unreal based on experiences from multiple projects", lang: "EN", video: "[Private] No recording :(" },
+    { id: "c2", type: "conference", date: "2023-04-20", displayDate: "Apr 20, 2023", title: "GeeCon 2023", city: "Cracow", lat: 50.08910790027821, lng: 19.984504154240273, desc: "What is Animation Engineering?", lang: "EN", video: "https://youtu.be/RwzZWc2ug0g?si=1S7ogOX41Nunnv4b},
+    { id: "c1", type: "conference", date: "2022-05-12", displayDate: "May 12, 2022", title: "GeeCon 2022", city: "Cracow", lat: 50.08910790027821, lng: 19.984504154240273, desc: "Gamedev through the eyes of a backend engineer", lang: "EN", video: "https://youtu.be/ZdfqLmfIlPs" },
+    { id: "c0", type: "conference", date: "2022-06-25", displayDate: "Jun 25, 2022", title: "Confitura", city: "Warsaw", lat: 52.225118613276074, lng: 20.96213981772683, desc: "GameDev okiem Backendowca", lang: "PL", video: "https://youtu.be/w5G6RqsFdgA?si=MX2znuZGwFGafjKf" },
 //    { id: "c4", type: "normal", date: "2025-12-02", displayDate: "Dec 02, 2025", title: "Warsaw Game Dev", city: "Kraków", lat: 50.0647, lng: 19.9450, desc: "Panel: The Future of AI in Strategy Games." },
 //    { id: "c5", type: "epic", date: "2025-04-20", displayDate: "Apr 20, 2025", title: "Code Europe", city: "Gdańsk", lat: 54.3520, lng: 18.6466, desc: "Keynote: Taming the Chaos of Distributed Systems." }
 ];
@@ -70,13 +71,21 @@ function initMapsAndFooter() {
             bigMapMarkers[conf.id] = marker;
 
             const typeBadge = conf.type === 'epic' ? `<span class="type-badge type-epic">Epic</span>` : `<span class="type-badge type-normal">Quest</span>`;
+
+            // Check if video exists to render an RTS-styled button, otherwise show "Locked"
+            const videoButton = conf.video
+                ? `<a href="${conf.video}" target="_blank" class="read-more-btn" style="padding: 4px 10px; font-size: 0.75rem; text-decoration: none; display: inline-block;">▶ Watch</a>`
+                : `<span style="color: #555; font-style: italic; font-size: 0.8rem;">Locked</span>`;
+
             tableBody.innerHTML += `
                 <tr id="row-${conf.id}" onclick="focusMapMarker('${conf.id}', ${conf.lat}, ${conf.lng})">
-                    <td>${conf.displayDate}</td>
+                    <td style="white-space: nowrap;">${conf.displayDate}</td>
+                    <td style="text-align: center; font-weight: bold; color: #888;">${conf.lang || 'EN'}</td>
                     <td>${typeBadge}</td>
                     <td style="font-family: monospace; color: #888;">[${conf.lat.toFixed(2)}, ${conf.lng.toFixed(2)}]</td>
                     <td style="color: var(--gold-text); font-weight: bold;">${conf.city}</td>
                     <td><strong>${conf.title}</strong><br><span style="color:#888; font-size:0.8rem;">${conf.desc}</span></td>
+                    <td style="text-align: center;">${videoButton}</td>
                 </tr>`;
         }
     });
