@@ -513,13 +513,24 @@
                 /* Minimap adjustments: Stretch into a panoramic radar */
                 .minimap-wrapper { width: 100% !important; height: 200px !important; }
 
-                /* Inventory adjustments: Mutate from a 2x2 grid to a horizontal 4-slot action bar */
-                .inv-grid {
-                    grid-template-columns: repeat(4, 1fr);
-                    gap: 8px;
-                    padding: 10px;
-                }
-                .inv-slot { width: 100%; aspect-ratio: 1; }
+                /* Inventory adjustments: Horizontal 4-slot action bar (Fixed Overflow) */
+                    .inv-grid {
+                        display: grid;
+                        /* The minmax(0, 1fr) is the magic key that prevents border blowouts */
+                        grid-template-columns: repeat(4, minmax(0, 1fr));
+                        gap: 8px;
+                        padding: 10px;
+                        width: 100%; /* Ensures the box itself doesn't stretch past the wrapper */
+                    }
+
+                    .inv-slot {
+                        width: 100%;
+                        aspect-ratio: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        overflow: hidden; /* Keeps the emojis from overflowing their individual boxes */
+                    }
 
             /* Shrink the portrait slightly so it can sit side-by-side with Hero Stats */
             .portrait-wrapper { width: 120px; align-self: flex-start; }
