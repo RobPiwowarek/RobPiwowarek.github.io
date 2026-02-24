@@ -18,7 +18,7 @@ title: Game Jams & Hackathons
             <div class="project-info">
                 <h3>{{ project.title }}</h3>
                 <p>{{ project.excerpt | strip_html | truncatewords: 20 }}</p>
-                <a href="{{ project.url | relative_url }}" class="read-more-btn" style="text-decoration: none; text-align: center;">Enter Campaign</a>
+                <a href="{{ project.url | relative_url }}" class="read-more-btn" style="text-decoration: none; text-align: center;">Open</a>
             </div>
         </div>
         {% endfor %}
