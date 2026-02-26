@@ -18,6 +18,8 @@ In 2022 I started working for PixelAnt Games, a co-development studio under Sumo
 In the meantime I worked after hours as an AI unreal engine programmer for Cosmoscouts, working on a small indie FPS game called Moon Mystery. 
 Eventually I became employed as Senior Game Programmer at Techland, working mainly with Unreal Engine 5 and game AI. 
 
+[Incomplete list of my project involvement can be found here.](https://www.mobygames.com/person/1366533/robert-piwowarek/)
+
 ## About Blog
 I want this blog to overtime collect various knowledge and experience that I accumulated over the years, preferably with solutions to issues that I have encountered. 
 
