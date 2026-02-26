@@ -10,6 +10,7 @@ tags:
     - glm
 toc: true
 toc_sticky: true
+thumbnail: /assets/images/opengl/hw/clion.png
 ---
 
 One day I decided to learn more about game engines and rendering in general. Having some prior knowledge, I decided to start at OpenGL, at a [website](https://learnopengl.com/) I was intimately familiar with since university - called learnopengl. 
@@ -135,7 +136,7 @@ CMakeFiles\myapp-clion.dir/objects.a(main.cpp.obj): In function `initGL':
 And many other similar issues. That lead me to find out that I might need something called [glew](http://glew.sourceforge.net/).
 
 At this point, my project structure started looking like this:
-![](../assets/images/opengl/hw/img.png)
+![](/assets/images/opengl/hw/img.png)
   
 where glew, glfw and glm were the libraries' GitHub repositories.
 

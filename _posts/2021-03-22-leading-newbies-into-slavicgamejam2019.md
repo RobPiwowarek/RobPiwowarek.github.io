@@ -3,6 +3,7 @@ title: "Leading inexperienced team of 7 into SGJ2019"
 categories: [GameDev]
 toc: true
 toc_sticky: true
+thumbnail: /assets/images/slavic2019/group.png
 ---
 # How it started
 It was a beautiful day outside, birds were singing, flowers were blooming - on days like this, adults like us ... should be working our boring daily routines.  

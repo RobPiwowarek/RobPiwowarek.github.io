@@ -10,6 +10,7 @@ tags:
 
 toc: true
 toc_sticky: true
+thumbnail: /assets/images/opengl/glsl/bos_line.jpg
 ---
 
 Does time fly when you are having fun? It has been almost a year since my last post, and recently I started learning GLSL through [the book of shaders](https://thebookofshaders.com/) - it is an outstanding book with lots of understandable language, interactive examples etc. etc. 

@@ -4,7 +4,7 @@ title: "About Me"
 permalink: /about
 author_profile: true
 ---
-I am a hobbyist game developer; in my free time I love to go on a jam or design/create games!
+I am a former professional backend Scala developer turned game developer;
 
 I started my adventure with making games somewhere in early primary school (circa 2005) with Warcraft 3's map editor where I created some simple maps and mods with the use of the simplified scripting system (triggers). Later on I discovered RPG Maker and tried to make some custom Pokemon games of my own.
 
@@ -13,8 +13,11 @@ After that University started, and I began my work as a junior Scala developer i
 
 I have a great passion for MMORPGs especially World of Warcraft; I could talk about its design flaws and positives for hours; the same is true about character classes.
 
+My professional game development career started in 2021 when I landed a job at 11 bit studios as a gameplay programmer for a TPP action game project in Unreal Engine 4.
+In 2022 I started working for PixelAnt Games, a co-development studio under Sumo Digital where I did generalist work for multiple co-dev. projects such as Warhammer 40k: Boltgun, The Texas Chain-saw Massacre, Nightingale and Project Umbrella (unannounced internal project at PixelAnt).
+In the meantime I worked after hours as an AI unreal engine programmer for Cosmoscouts, working on a small indie FPS game called Moon Mystery. 
+Eventually I became employed as Senior Game Programmer at Techland, working mainly with Unreal Engine 5 and game AI. 
+
 ## About Blog
+I want this blog to overtime collect various knowledge and experience that I accumulated over the years, preferably with solutions to issues that I have encountered. 
 
-The main idea for the blog (for now) is that it will be gamedev focused with occasional general programming topics combined with JVM, low-level, programming languages, computer graphics related stuff - as they also are interesting to me.  
-
-A blog about everything does not attract attention so at the very least I will try to keep things separated. 
