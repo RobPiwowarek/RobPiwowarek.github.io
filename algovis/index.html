@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/src/app.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pathfinding Visualizer</title>
+</head>
+<body>
+<div id="app">
+  <!-- ===================== -->
+  <!-- Title Bar             -->
+  <!-- ===================== -->
+  <header id="title-bar">
+    <div id="title">
+      <h1>Pathfinding Visualizer</h1>
+    </div>
+  </header>
+
+  <!-- ===================== -->
+  <!-- Main Content          -->
+  <!-- ===================== -->
+  <main id="main-layout">
+    <!-- Left editing toolbar -->
+    <aside id="tool-panel" class="panel">
+      <h2>Tools</h2>
+        <!-- buttons inserted dynamically -->
+    </aside>
+
+    <!-- Center column -->
+    <section id="workspace">
+      <div id="grid-panel" class="panel">
+        <div id="canvas-frame">
+          <div id="canvas-container"></div>
+        </div>
+
+        <div id="simulation-panel" class="panel" aria-label="Simulation controls">
+          <div id="grid-settings-panel" aria-label="Grid size controls"></div>
+            <!-- Run / Stop / Step controls are inserted dynamically. -->
+        </div>
+      </div>
+
+      <div id="console-panel" class="panel">
+        <h2>Console</h2>
+        <div id="console-output" role="log" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Right sidebar -->
+    <aside id="sidebar">
+      <section id="algorithm-panel" class="panel">
+        <h2>Algorithm</h2>
+          <!-- dropdown -->
+          <!-- settings -->
+          <!-- dynamic controls -->
+      </section>
+
+      <section id="description-panel" class="panel">
+        <h2 id="description-title">Description</h2>
+        <div id="description-content"></div>
+      </section>
+    </aside>
+
+  </main>
+</div>
+<script type="module" src="/src/app.ts"></script>
+</body>
+</html>
