@@ -8,7 +8,7 @@ thumbnail: /assets/images/fine.png
 # Attempting to embed pathfinding algorithm visualizer into this website
 
 <iframe
-src="{{ '/algovis/dist/index.html' | relative_url }}"
+src="{{ '/algovis/index.html' | relative_url }}"
 title="Algorithm visualizer"
 width="100%"
 height="800"
