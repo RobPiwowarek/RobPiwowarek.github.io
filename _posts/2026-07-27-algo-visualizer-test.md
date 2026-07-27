@@ -8,3 +8,4 @@ thumbnail: /assets/images/fine.png
 
 Published a page dedicated to pathfinding algorithm visualizer, version is in progress and will be soon improved. 
 This post will be edited with better description once the visualizer is finished.
+Link: https://robpiwowarek.github.io/algovis/
